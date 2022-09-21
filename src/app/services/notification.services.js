@@ -3,16 +3,16 @@ class Notification {
    * @param {state} - boolean to set loader state
    * @returns { void }
    */
-  hasLoader({ state }) {
-    return `loader ${state}`;
+  hasLoader({ state } = {}) {
+    console.log(`loader ${state}`);
   }
-  hasError() {
-    return "error";
+  onError({ state, message = "error" }) {
+    console.log(`error ${state}, ${message}`);
   }
-  hasInfo() {
+  onInfo() {
     return "info";
   }
 }
 
-const { hasLoader, hasError, hasInfo } = new Notification();
-export { hasLoader, hasError, hasInfo };
+const { hasLoader, onError, onInfo } = new Notification();
+export { hasLoader, onError, onInfo };
