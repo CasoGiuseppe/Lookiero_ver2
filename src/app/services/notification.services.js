@@ -1,7 +1,14 @@
 class Notification {
-  hasLoader() {}
-  hasError() {}
-  hasInfo() {}
+  hasLoader() {
+    return "loader";
+  }
+  hasError() {
+    return "error";
+  }
+  hasInfo() {
+    return "info";
+  }
 }
 
-export default new Notification();
+const { hasLoader, hasError, hasInfo } = new Notification();
+export { hasLoader, hasError, hasInfo };

@@ -10,4 +10,5 @@ class Http {
   }
 }
 
-export default new Http();
+const { get } = new Http();
+export { get };
