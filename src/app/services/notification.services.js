@@ -1,6 +1,10 @@
 class Notification {
-  hasLoader() {
-    return "loader";
+  /**
+   * @param {state} - boolean to set loader state
+   * @returns { void }
+   */
+  hasLoader({ state }) {
+    return `loader ${state}`;
   }
   hasError() {
     return "error";
