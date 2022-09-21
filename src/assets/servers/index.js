@@ -35,6 +35,13 @@ const mockServer = new Server({
       const user = schema.db.users.where({ id: request.params.id })[0];
       user.data.following = request.requestBody;
     });
+
+    // add new message
+    this.post(`${API_ENDPOINT}/id/:id/`, (schema, request) => {
+      const owner = schema.db.users.find(request.params.id);
+      owner.messages = [...owner.messages, JSON.parse(request.requestBody)];
+      schema.db.users.update(request.params.id, owner);
+    });
   },
 });
 
