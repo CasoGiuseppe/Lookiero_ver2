@@ -27,7 +27,7 @@ const mockServer = new Server({
 
     // get user by owner type
     this.get(`${API_ENDPOINT}/owner/:owner`, (schema, request) => {
-      return schema.db.users.findBy({data: {owner: request.params.owner}});
+      return schema.db.users.findBy({ data: { owner: request.params.owner } });
     });
   },
 });

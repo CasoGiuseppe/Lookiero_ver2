@@ -1,4 +1,4 @@
-export const getAllUsers =
+export const getTwitterUsers =
   ({ HTTP: { get }, notifications: { hasLoader, onError } }) =>
   async ({ url, onErrorState = undefined } = {}) => {
     // 0. handle error
