@@ -8,7 +8,15 @@ class Http {
     const response = await fetch(url, ...params);
     return await response.json();
   }
+
+  async patch(url, value) {
+    const response = await fetch(url, {
+      method: "patch",
+      body: value,
+    });
+    return await response.json();
+  }
 }
 
-const { get } = new Http();
-export { get };
+const { get, patch } = new Http();
+export { get, patch };
