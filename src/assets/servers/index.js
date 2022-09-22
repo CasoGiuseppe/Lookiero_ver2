@@ -38,6 +38,7 @@ const mockServer = new Server({
 
     // add new message
     this.post(`${API_ENDPOINT}/id/:id/`, (schema, request) => {
+      console.log(JSON.parse(request.requestBody));
       const owner = schema.db.users.find(request.params.id);
       owner.messages = [...owner.messages, JSON.parse(request.requestBody)];
       schema.db.users.update(request.params.id, owner);
