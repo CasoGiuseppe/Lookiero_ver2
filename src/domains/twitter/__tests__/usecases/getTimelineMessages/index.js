@@ -34,3 +34,7 @@ export const mockBaseFn = getTimelineMessages({
   },
   modelCollecion: mockModels,
 });
+
+export const mockThrwoErrorNoFn = getTimelineMessages({
+  HTTP: { get: null },
+});
