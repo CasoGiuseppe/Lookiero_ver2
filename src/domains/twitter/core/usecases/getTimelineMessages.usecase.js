@@ -2,20 +2,25 @@ export const getTimelineMessages =
   ({
     HTTP: { get },
     services: {
-      notifications: { hasLoader, hasNotification },
-      store: { onStore },
-      manipulator: { sortDates, getDifferentDates },
+      notifications: { hasLoader, hasNotification } = {},
+      store: { onStore } = {},
+      manipulator: { sortDates, getDifferentDates } = {},
     } = {},
-    modelCollecion: { IUsers, IMessage },
+    modelCollecion: { IUsers, IMessage } = {},
   }) =>
   async ({ request: { url = undefined, ...params }, ...args } = {}) => {
     // 0. handle error
     // 0.1 check if HTTP get is a function
-    if (typeof get !== "function") throw new Error("Usecase > getTwitterUsers > HTTP get is not a funtion");
+    if (typeof get !== "function") throw new Error("Usecase > getTimelineMessages > HTTP get is not a funtion");
 
     // 0.2 check if all required params exist
     const requiredOnFail = [url !== undefined, Object.keys(params).lenght !== 0].some((key) => key === false);
-    if (requiredOnFail) throw new Error("Usecase > getTwitterUsers > check that all required params exist");
+    if (requiredOnFail) throw new Error("Usecase > getTimelineMessages > check that all required params exist");
+
+    // 0.3 check if models are classes
+    const requiredClasses = [IUsers.prototype, IMessage.prototype];
+    if (requiredClasses.some((node) => node === undefined))
+      throw new Error("Usecase > getTimelineMessages > All models should be a class");
 
     const { onErrorState, onInfoState, ...rest } = args;
 
@@ -40,26 +45,25 @@ export const getTimelineMessages =
       hasNotification ? hasNotification(onInfoState || { state: true, type: "info", message: "notification" }) : null;
 
       // 2.8 stored sorted and manipulated data
-      onStore
-        ? onStore({
-            ...rest,
-            params: sortDates({
-              obj: response
-                .map((node) => {
-                  return node.messages.reduce((acc, item) => {
-                    return [
-                      ...acc,
-                      {
-                        ...{ ...new IMessage(item), ...{ diffTime: getDifferentDates({ date: item.date }) } },
-                        ...{ ...new IUsers(node) },
-                      },
-                    ];
-                  }, []);
-                })
-                .flat(2),
-            }),
-          })
-        : null;
+      if (!onStore) return;
+      onStore({
+        ...rest,
+        params: sortDates({
+          obj: response
+            .map((node) => {
+              return node.messages.reduce((acc, item) => {
+                return [
+                  ...acc,
+                  {
+                    ...{ ...new IMessage(item), ...{ diffTime: getDifferentDates({ date: item.date }) } },
+                    ...{ ...new IUsers(node) },
+                  },
+                ];
+              }, []);
+            })
+            .flat(2),
+        }),
+      });
     } catch ({ message }) {
       // 3. handle response erro
       hasNotification ? hasNotification(onErrorState || { state: true, type: "error", message }) : null;
