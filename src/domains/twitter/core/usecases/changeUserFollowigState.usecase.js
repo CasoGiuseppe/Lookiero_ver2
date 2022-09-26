@@ -1,6 +1,6 @@
 export const changeUserFollowigState =
-  ({ HTTP: { patch }, notifications: { hasLoader, onError } }) =>
-  async ({ request: { url = undefined, ...params }, onErrorState = undefined }) => {
+  ({ HTTP: { patch }, notifications: { hasLoader, hasError } }) =>
+  async ({ request: { url = undefined, ...params }, ...args }) => {
     // 0. handle error
     // 0.1 check if HTTP patch is a function
     if (typeof patch !== "function") throw new Error("Usecase > changeUserFollowigState > HTTP patch is not a funtion");
@@ -9,6 +9,8 @@ export const changeUserFollowigState =
     const requiredOnFail = [url !== undefined, Object.keys(params).lenght !== 0].some((key) => key === false);
     if (requiredOnFail) throw new Error("Usecase > changeUserFollowigState > check that all required params exist");
 
+    const { onErrorState } = args;
+
     // 2. launch endpoint get to return all users
     try {
       // 2.1 launch loader to wait endpoint response
@@ -16,7 +18,7 @@ export const changeUserFollowigState =
       return await patch(url, ...Object.values(params));
     } catch ({ message }) {
       // 2.1 handle response erro
-      onError({ state: true, message: onErrorState || message });
+      hasError ? hasError(onErrorState || { message }) : null;
       throw new Error(message);
     } finally {
       // 2.2 delete loader state

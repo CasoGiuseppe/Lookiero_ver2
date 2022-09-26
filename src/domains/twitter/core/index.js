@@ -1,24 +1,24 @@
 // services
 import { get, patch, post } from "@/app/services/http.services";
-import { hasLoader, onError } from "@/app/services/notification.services";
+import Notification from "@/app/services/notification.services";
 // usecase
 import { getUsersByValue } from "@/domains/twitter/core/usecases/getUsersByValue.usecase";
 import { changeUserFollowigState } from "@/domains/twitter/core/usecases/changeUserFollowigState.usecase";
 import { addUserMessage } from "@/domains/twitter/core/usecases/addUserMessage.usecase";
 
-const notifications = { hasLoader, onError };
+const { hasLoader, hasError, hasInfo } = new Notification();
 
 export const UseGetUsersByValue = getUsersByValue({
   HTTP: { get },
-  notifications,
+  notifications: { hasLoader, hasError },
 });
 
 export const UseChangeUserState = changeUserFollowigState({
   HTTP: { patch },
-  notifications,
+  notifications: { hasLoader, hasError },
 });
 
 export const UseAddUserMessage = addUserMessage({
   HTTP: { post },
-  notifications,
+  notifications: { hasLoader, hasError },
 });

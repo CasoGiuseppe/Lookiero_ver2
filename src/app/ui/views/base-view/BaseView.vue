@@ -5,12 +5,23 @@
 <script setup>
 // constants
 import { API_BASE_PATH } from "@/assets/partials/constants";
+import { GENERIC_ERROR } from "@/app/partials/messages";
 
 // usecases
 import { UseGetUsersByValue, UseChangeUserState, UseAddUserMessage } from "@/domains/twitter/core";
 import { onMounted } from "vue";
 onMounted(async () => {
-  await UseGetUsersByValue({ request: { url: `${API_BASE_PATH}` } });
+  // `${API_BASE_PATH}`
+  await UseGetUsersByValue({
+    request: {
+      url: "ciccio",
+    },
+    onErrorState: {
+      state: true,
+      type: "error",
+      message: GENERIC_ERROR,
+    },
+  });
   // console.log(await UseGetUsersByValue({ request: { url: `${API_BASE_PATH}` } }));
   // console.log(await UseGetUsersByValue({ request: { url: `${API_BASE_PATH}id/2` } }));
   //await UseChangeUserState({ request: { url: `${API_BASE_PATH}id/2`, value: true } });
