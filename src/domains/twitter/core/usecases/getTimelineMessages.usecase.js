@@ -8,7 +8,7 @@ export const getTimelineMessages =
     } = {},
     modelCollecion: { IUsers, IMessage } = {},
   }) =>
-  async ({ request: { url = undefined, ...params }, ...args } = {}) => {
+  async ({ request: { url = undefined, ...params } = {}, ...args } = {}) => {
     // 0. handle error
     // 0.1 check if HTTP get is a function
     if (typeof get !== "function") throw new Error("Usecase > getTimelineMessages > HTTP get is not a funtion");
