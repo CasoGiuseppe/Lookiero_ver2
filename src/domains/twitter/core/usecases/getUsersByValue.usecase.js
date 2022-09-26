@@ -9,11 +9,10 @@ export const getUsersByValue =
     const requiredOnFail = [url !== undefined, Object.keys(params).lenght !== 0].some((key) => key === false);
     if (requiredOnFail) throw new Error("Usecase > getTwitterUsers > check that all required params exist");
 
-    // 1. launch loader to wait endpoint response
-    hasLoader({ state: "true" });
-
     // 2. launch endpoint get to return all users
     try {
+      // 2.1 launch loader to wait endpoint response
+      hasLoader({ state: "true" });
       return await get(url, ...Object.values(params));
     } catch ({ message }) {
       // 2.1 handle response erro

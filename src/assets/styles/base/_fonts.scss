@@ -1,0 +1,16 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;700&display=swap');
+
+:root {
+  --sm-font-weight-light: 300;
+  --sm-font-weight-regular: 400;
+  --sm-font-weight-bold: 700;
+
+  --sm-font-size-xlarge: #{px2rem(32)};
+  --sm-font-size-big: #{px2rem(22)};
+  --sm-font-size-medium: #{px2rem(16)};
+  --sm-font-size-small: #{px2rem(14)};
+  --sm-font-size-mini: #{px2rem(12)};
+
+  --sm-defualt-font-family: 'Overpass';
+}

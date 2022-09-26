@@ -1,0 +1,9 @@
+@import './unit';
+
+:root {
+    //- custom element spacing with base 8
+    --sm-spacing-xsmall: #{px2rem(calc($base / 2))}; // 4
+    --sm-spacing-small: #{px2rem($base)}; // 8
+    --sm-spacing-medium: #{px2rem($base * 2)};// 16
+    --sm-spacing-big: #{px2rem($base * 3)};// 24
+}

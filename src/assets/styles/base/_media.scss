@@ -1,0 +1,15 @@
+//- custom grid size
+$grid__bp-sm: 576;
+$grid__bp-md: 768;
+$grid__bp-lg: 992;
+$grid__bp-xl: 1200;
+$grid__bp-xxl: 1430;
+
+//- custom breakpoints
+$breakpoints: (
+  'only-phone' : (max-width: #{$grid__bp-sm + px}),
+  'tablet-pt' : (min-width: #{$grid__bp-md + px}),
+  'tablet-ld' : (min-width: #{$grid__bp-lg + px}),
+  'desktop' : (min-width: #{$grid__bp-xl + px}),
+  'large-desktop' : (min-width: #{$grid__bp-xxl + px})
+);

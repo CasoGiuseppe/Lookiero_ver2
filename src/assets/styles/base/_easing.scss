@@ -1,0 +1,7 @@
+:root {
+  //- custom easing transition
+  --sm-ease-in: cubic-bezier(.75, -.03, .83, .6);
+  --sm-ease-out: cubic-bezier(.17, .67, .17, 1.01);
+  --sm-ease-elastic: cubic-bezier(.08, 1.48, .69, 1.14);
+  --sm-ease-elastic-out: cubic-bezier(.5,-0.26,.78,.5);
+}
