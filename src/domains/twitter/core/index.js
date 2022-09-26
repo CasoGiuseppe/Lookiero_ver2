@@ -1,6 +1,7 @@
 // services
-import { get, patch, post } from "@/app/services/http.services";
+import { getService } from "@/domains/twitter/infrastructure/repositories/twitter.repository.js";
 import Notification from "@/app/services/notification.services";
+import Store from "@/app/services/store.services";
 
 // usecase
 import { getUsersByValue } from "@/domains/twitter/core/usecases/getUsersByValue.usecase";
@@ -9,6 +10,8 @@ import { addUserMessage } from "@/domains/twitter/core/usecases/addUserMessage.u
 import { setUserNotification } from "@/app/usecases/setUserNotification.usecase";
 
 const { hasLoader, hasNotification } = new Notification();
+const { storeData } = new Store();
+
 export const UseNotifications = setUserNotification({
   onNotification: hasNotification,
   onLoader: hasLoader,
@@ -16,17 +19,8 @@ export const UseNotifications = setUserNotification({
 const { onNotificationMessage, onLoaderState } = UseNotifications();
 const notifications = { hasLoader: onLoaderState, hasNotification: onNotificationMessage };
 
-export const UseGetUsersByValue = getUsersByValue({
-  HTTP: { get },
+export const UseGetUsers = getUsersByValue({
+  HTTP: { get: getService },
   notifications,
-});
-
-export const UseChangeUserState = changeUserFollowigState({
-  HTTP: { patch },
-  notifications,
-});
-
-export const UseAddUserMessage = addUserMessage({
-  HTTP: { post },
-  notifications,
+  store: { onStore: storeData },
 });

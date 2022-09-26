@@ -22,12 +22,12 @@ const mockServer = new Server({
 
     // get user by id
     this.get(`${API_ENDPOINT}/id/:id/`, (schema, request) => {
-      return schema.db.users.where({ id: request.params.id })[0];
+      return schema.db.users.findBy({ id: request.params.id });
     });
 
     // get user by owner type
     this.get(`${API_ENDPOINT}/owner/:owner`, (schema, request) => {
-      return schema.db.users.findBy({ data: { owner: request.params.owner } });
+      return schema.db.users.where({ owner: request.params.owner });
     });
 
     // update user following state

@@ -1,5 +1,5 @@
 export const getUsersByValue =
-  ({ HTTP: { get }, notifications: { hasLoader, hasNotification } }) =>
+  ({ HTTP: { get }, notifications: { hasLoader, hasNotification }, store: { onStore } }) =>
   async ({ request: { url = undefined, ...params }, ...args } = {}) => {
     // 0. handle error
     // 0.1 check if HTTP get is a function
@@ -9,7 +9,7 @@ export const getUsersByValue =
     const requiredOnFail = [url !== undefined, Object.keys(params).lenght !== 0].some((key) => key === false);
     if (requiredOnFail) throw new Error("Usecase > getTwitterUsers > check that all required params exist");
 
-    const { onErrorState, onInfoState } = args;
+    const { onErrorState, onInfoState, ...rest } = args;
 
     // 2. launch endpoint get to return all users
     try {
@@ -17,17 +17,24 @@ export const getUsersByValue =
       hasLoader ? hasLoader({ state: true }) : null;
 
       // 2.2 launch API endpoint
-      await get(url, ...Object.values(params));
+      const response = await get(url, ...Object.values(params));
 
       // 2.3 notify to user successfully
       hasNotification ? hasNotification(onInfoState || { message: "notification" }) : null;
+
+      // 2.4 stored data
+      onStore
+        ? onStore({
+            ...rest,
+            params: response,
+          })
+        : null;
     } catch ({ message }) {
-      // 2.1 handle response erro
+      // 3. handle response erro
       hasNotification ? hasNotification(onErrorState || { message }) : null;
       throw new Error(message);
     } finally {
-      // 2.2 delete loader state
+      // 4. delete loader state
       hasLoader ? hasLoader({ state: false }) : null;
     }
-    // 3. call callback funciton to save response in store
   };

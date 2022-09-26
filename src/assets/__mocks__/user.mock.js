@@ -1,10 +1,10 @@
 export default [
   {
+    owner: true,
     data: {
       name: "Giuseppe",
       age: 40,
       location: "Madrid",
-      owner: true,
     },
     messages: [
       {
@@ -18,6 +18,7 @@ export default [
     ],
   },
   {
+    owner: false,
     data: {
       name: "Esther",
       age: 40,
@@ -40,6 +41,7 @@ export default [
     ],
   },
   {
+    owner: false,
     data: {
       name: "Beatriz",
       age: 40,
@@ -62,6 +64,7 @@ export default [
     ],
   },
   {
+    owner: false,
     data: {
       name: "Ben",
       age: 40,
@@ -84,6 +87,7 @@ export default [
     ],
   },
   {
+    owner: false,
     data: {
       name: "Bob",
       age: 16,
@@ -106,6 +110,7 @@ export default [
     ],
   },
   {
+    owner: false,
     data: {
       name: "Alice",
       age: 20,
@@ -128,6 +133,7 @@ export default [
     ],
   },
   {
+    owner: false,
     data: {
       name: "Maria",
       age: 60,
@@ -150,6 +156,7 @@ export default [
     ],
   },
   {
+    owner: false,
     data: {
       name: "Elena",
       age: 35,

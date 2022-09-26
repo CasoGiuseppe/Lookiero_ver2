@@ -12,6 +12,7 @@
       @close="closeNotification"
       :state="notificationStore.state"
       :type="notificationStore.type"
+      :key="`${notificationStore.type}-${notificationStore.message.replace(/\s/g, '')}`"
     >
       <template #message> {{ notificationStore.message }} </template>
     </Notification>
