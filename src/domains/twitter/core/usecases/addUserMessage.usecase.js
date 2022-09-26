@@ -12,7 +12,7 @@ export const addUserMessage =
     // 2. launch endpoint get to return all users
     try {
       // 2.1 launch loader to wait endpoint response
-      hasLoader({ state: "true" });
+      hasLoader({ state: true });
       return await post(url, ...Object.values(params));
     } catch ({ message }) {
       // 2.1 handle response erro
@@ -20,7 +20,7 @@ export const addUserMessage =
       throw new Error(message);
     } finally {
       // 2.2 delete loader state
-      hasLoader({ state: "false" });
+      hasLoader({ state: false });
     }
     // 3. call callback funciton to save response in store
   };
