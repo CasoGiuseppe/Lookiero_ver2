@@ -17,7 +17,6 @@ export const getUsersByValue =
       hasLoader({ state: true });
       return await get(url, ...Object.values(params));
     } catch ({ message }) {
-      console.log(onErrorState);
       // 2.1 handle response erro
       hasError ? hasError(onErrorState || { message }) : null;
       throw new Error(message);

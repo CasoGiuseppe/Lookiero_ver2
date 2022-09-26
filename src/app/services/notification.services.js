@@ -20,7 +20,6 @@ export default class Notification {
    * @returns {void}
    */
   hasError(...args) {
-    console.log(...args);
     cosmeticStore[CHANGE_NOTIFICATION_STATE](...Object.values(args));
   }
   hasInfo() {

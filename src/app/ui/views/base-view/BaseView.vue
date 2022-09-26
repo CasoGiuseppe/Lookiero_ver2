@@ -11,10 +11,9 @@ import { GENERIC_ERROR } from "@/app/partials/messages";
 import { UseGetUsersByValue, UseChangeUserState, UseAddUserMessage } from "@/domains/twitter/core";
 import { onMounted } from "vue";
 onMounted(async () => {
-  // `${API_BASE_PATH}`
   await UseGetUsersByValue({
     request: {
-      url: "ciccio",
+      url: `${API_BASE_PATH}`,
     },
     onErrorState: {
       state: true,
