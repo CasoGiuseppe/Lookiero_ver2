@@ -11,7 +11,7 @@ class MockTimeLine {
 const mockPageResource = (url) => {
   const responseCases = {
     "http://mock_url": { data: [{ param: "value" }] },
-    "http://noData.response": { data: [] },
+    "http://noData.response": [],
     "http://mock_throw_error": () => {
       throw new Error();
     },
@@ -20,7 +20,11 @@ const mockPageResource = (url) => {
 };
 
 // mock services
-const mockNotifications = { hasLoader: () => {}, hasNotification: () => {} };
+const mockHasNotification = ({ $notify, message }) => {
+  console.log(message);
+  $notify.message = message;
+};
+const mockNotifications = { hasLoader: () => {}, hasNotification: mockHasNotification };
 const mockManipulator = { sortDates: () => {}, getDifferentDates: () => {} };
 const mockModels = { IUsers: MockTimeLine, IMessage: MockTimeLine };
 const mockStore = () => {};

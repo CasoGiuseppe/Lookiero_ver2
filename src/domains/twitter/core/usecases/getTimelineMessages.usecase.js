@@ -37,7 +37,13 @@ export const getTimelineMessages =
       // 2.5 exit from function
       // 2.6 notify to user
       if (response.length === 0) {
-        hasNotification ? hasNotification({ state: true, type: "info", message: "Sorry! No items found" }) : null;
+        hasNotification
+          ? hasNotification(
+              onInfoState
+                ? { ...onInfoState, ...{ message: "Sorry! No items found" } }
+                : { state: true, type: "info", message: "Sorry! No items found" }
+            )
+          : null;
         return;
       }
 
