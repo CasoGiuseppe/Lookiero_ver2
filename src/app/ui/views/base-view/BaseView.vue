@@ -8,7 +8,7 @@ import { API_BASE_PATH } from "@/assets/partials/constants";
 import { GENERIC_ERROR, API_SUCCESS, BASE_NOTIFICATION_OBJ as notification } from "@/app/partials/messages";
 
 // usecases
-import { UseGetUsers } from "@/domains/twitter/core";
+import { UseGetTimelineMessages } from "@/domains/twitter/core";
 import { onMounted } from "vue";
 
 // store
@@ -19,7 +19,7 @@ onMounted(async () => {
   // pinia
   const twitterStore = useTwitterStore();
 
-  await UseGetUsers({
+  await UseGetTimelineMessages({
     request: {
       url: `${API_BASE_PATH}owner/false`,
     },
