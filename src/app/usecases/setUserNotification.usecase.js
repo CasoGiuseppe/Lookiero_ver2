@@ -1,33 +1,24 @@
 export const setUserNotification =
-  ({ onError, onInfo, onLoader }) =>
+  ({ onNotification, onLoader }) =>
   () => {
-    const onErrorMessage = (...args) => {
-      // 0. handle errors
-      // 0.1 check if error method exist
-      const requiredFail = [onError].some((key) => key === undefined);
-      if (requiredFail) throw new Error("UseCase > setUserNotification > check that all required params exist");
-      onError(...args);
-    };
-
-    const onInfoMessage = (...args) => {
-      // 0. handle errors
+    const onNotificationMessage = (...args) => {
+      // 0. handle notificaion
       // 0.1 check if info method exist
-      const requiredFail = [onInfo].some((key) => key === undefined);
+      const requiredFail = [onNotification].some((key) => key === undefined);
       if (requiredFail) throw new Error("UseCase > setUserNotification > check that all required params exist");
-      onInfo(...args);
+      onNotification(...args);
     };
 
-    const onLoaderState = (args) => {
+    const onLoaderState = (...args) => {
       // 0. handle errors
       // 0.1 check if info method exist
       const requiredFail = [onLoader].some((key) => key === undefined);
       if (requiredFail) throw new Error("UseCase > setUserNotification > check that all required params exist");
-      onLoader(args);
+      onLoader(...args);
     };
 
     return {
-      onErrorMessage,
-      onInfoMessage,
+      onNotificationMessage,
       onLoaderState,
     };
   };

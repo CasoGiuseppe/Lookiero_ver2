@@ -5,7 +5,7 @@
 <script setup>
 // constants
 import { API_BASE_PATH } from "@/assets/partials/constants";
-import { GENERIC_ERROR } from "@/app/partials/messages";
+import { GENERIC_ERROR, API_SUCCESS } from "@/app/partials/messages";
 
 // usecases
 import { UseGetUsersByValue, UseChangeUserState, UseAddUserMessage } from "@/domains/twitter/core";
@@ -19,6 +19,11 @@ onMounted(async () => {
       state: true,
       type: "error",
       message: GENERIC_ERROR,
+    },
+    onInfoState: {
+      state: true,
+      type: "info",
+      message: API_SUCCESS,
     },
   });
   // console.log(await UseGetUsersByValue({ request: { url: `${API_BASE_PATH}` } }));

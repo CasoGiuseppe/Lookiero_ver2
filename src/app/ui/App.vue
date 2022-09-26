@@ -37,9 +37,9 @@ const cosmeticRefs = storeToRefs(cosmeticStore);
 const loaderStore = cosmeticRefs[GET_LOADER_STATE].value;
 const notificationStore = cosmeticRefs[GET_NOTIFICATION_MODE].value;
 
-const { onErrorMessage } = UseNotifications();
+const { onNotificationMessage } = UseNotifications();
 
 // actions
-const closeNotification = () => onErrorMessage({});
+const closeNotification = () => onNotificationMessage({});
 </script>
 <style lang="scss" src="@/assets/styles/index.scss" />

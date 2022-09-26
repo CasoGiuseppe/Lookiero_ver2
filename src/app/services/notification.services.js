@@ -15,14 +15,11 @@ export default class Notification {
     cosmeticStore[CHANGE_LOADER_STATE]({ state });
   }
   /**
-   * handle error notify
+   * handle notification (error/info)
    * @param {array} args - all needed parameters that method can receive
    * @returns {void}
    */
-  hasError(...args) {
+  hasNotification(...args) {
     cosmeticStore[CHANGE_NOTIFICATION_STATE](...Object.values(args));
-  }
-  hasInfo() {
-    return "info";
   }
 }

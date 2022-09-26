@@ -14,7 +14,7 @@ export const changeUserFollowigState =
     // 2. launch endpoint get to return all users
     try {
       // 2.1 launch loader to wait endpoint response
-      hasLoader({ state: true });
+      hasLoader ? hasLoader({ state: true }) : null;
       return await patch(url, ...Object.values(params));
     } catch ({ message }) {
       // 2.1 handle response erro
@@ -22,6 +22,6 @@ export const changeUserFollowigState =
       throw new Error(message);
     } finally {
       // 2.2 delete loader state
-      hasLoader({ state: false });
+      hasLoader ? hasLoader({ state: false }) : null;
     }
   };

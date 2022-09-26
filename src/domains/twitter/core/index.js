@@ -8,14 +8,13 @@ import { changeUserFollowigState } from "@/domains/twitter/core/usecases/changeU
 import { addUserMessage } from "@/domains/twitter/core/usecases/addUserMessage.usecase";
 import { setUserNotification } from "@/app/usecases/setUserNotification.usecase";
 
-const { hasLoader, hasError, hasInfo } = new Notification();
+const { hasLoader, hasNotification } = new Notification();
 export const UseNotifications = setUserNotification({
-  onError: hasError,
-  onInfo: hasInfo,
+  onNotification: hasNotification,
   onLoader: hasLoader,
 });
-const { onErrorMessage, onInfoMessage, onLoaderState } = UseNotifications();
-const notifications = { hasLoader: onLoaderState, hasError: onErrorMessage };
+const { onNotificationMessage, onLoaderState } = UseNotifications();
+const notifications = { hasLoader: onLoaderState, hasNotification: onNotificationMessage };
 
 export const UseGetUsersByValue = getUsersByValue({
   HTTP: { get },
