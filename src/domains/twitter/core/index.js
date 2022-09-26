@@ -2,7 +2,8 @@
 import { getService } from "@/domains/twitter/infrastructure/repositories/twitter.repository.js";
 import Notification from "@/app/services/notification.services";
 import Store from "@/app/services/store.services";
-import { sortArrayByDate } from "@/domains/twitter/infrastructure/services/time.manipulator.services";
+import Date from "@/domains/twitter/infrastructure/services/date.manipulator.services";
+
 // usecase
 import { getTimelineMessages } from "@/domains/twitter/core/usecases/getTimelineMessages.usecase";
 import { changeUserFollowigState } from "@/domains/twitter/core/usecases/changeUserFollowigState.usecase";
@@ -15,6 +16,7 @@ import IMessage from "@/domains/twitter/core/models/IMessage.model";
 
 const { hasLoader, hasNotification } = new Notification();
 const { storeData } = new Store();
+const { sortArrayByDate } = new Date();
 
 export const UseNotifications = setUserNotification({
   onNotification: hasNotification,
