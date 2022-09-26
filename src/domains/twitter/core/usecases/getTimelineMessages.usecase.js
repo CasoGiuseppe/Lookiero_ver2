@@ -4,7 +4,7 @@ export const getTimelineMessages =
     services: {
       notifications: { hasLoader, hasNotification },
       store: { onStore },
-      manipulator: { sortArrayByDate },
+      manipulator: { sortDates, getDifferentDates },
     } = {},
     modelCollecion: { IUsers, IMessage },
   }) =>
@@ -39,28 +39,25 @@ export const getTimelineMessages =
       // 2.7 notify to user successfully
       hasNotification ? hasNotification(onInfoState || { state: true, type: "info", message: "notification" }) : null;
 
-      const xxx = sortArrayByDate({
-        obj: response
-          .map((node) => {
-            return node.messages.reduce((acc, item) => {
-              return [...acc, { ...{ ...new IMessage(item) }, ...{ ...new IUsers(node) } }];
-            }, []);
-          })
-          .flat(2),
-      });
-
-      console.log(xxx);
-      // 2.8 stored data
+      // 2.8 stored sorted and manipulated data
       onStore
         ? onStore({
             ...rest,
-            params: response
-              .map((node) => {
-                return node.messages.reduce((acc, item) => {
-                  return [...acc, { ...{ ...new IMessage(item) }, ...{ ...new IUsers(node) } }];
-                }, []);
-              })
-              .flat(2),
+            params: sortDates({
+              obj: response
+                .map((node) => {
+                  return node.messages.reduce((acc, item) => {
+                    return [
+                      ...acc,
+                      {
+                        ...{ ...new IMessage(item), ...{ diffTime: getDifferentDates({ date: item.date }) } },
+                        ...{ ...new IUsers(node) },
+                      },
+                    ];
+                  }, []);
+                })
+                .flat(2),
+            }),
           })
         : null;
     } catch ({ message }) {

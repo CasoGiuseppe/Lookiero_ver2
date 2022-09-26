@@ -16,7 +16,7 @@ import IMessage from "@/domains/twitter/core/models/IMessage.model";
 
 const { hasLoader, hasNotification } = new Notification();
 const { storeData } = new Store();
-const { sortArrayByDate } = new Date();
+const { sortArrayByDate, getTimeBetweenDates } = new Date();
 
 export const UseNotifications = setUserNotification({
   onNotification: hasNotification,
@@ -30,7 +30,7 @@ export const UseGetTimelineMessages = getTimelineMessages({
   services: {
     notifications,
     store: { onStore: storeData },
-    manipulator: { sortArrayByDate },
+    manipulator: { sortDates: sortArrayByDate, getDifferentDates: getTimeBetweenDates },
   },
   modelCollecion: { IUsers: ITimeline, IMessage },
 });
