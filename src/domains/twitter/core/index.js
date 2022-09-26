@@ -2,7 +2,7 @@
 import { getService } from "@/domains/twitter/infrastructure/repositories/twitter.repository.js";
 import Notification from "@/app/services/notification.services";
 import Store from "@/app/services/store.services";
-
+import { sortArrayByDate } from "@/domains/twitter/infrastructure/services/time.manipulator.services";
 // usecase
 import { getTimelineMessages } from "@/domains/twitter/core/usecases/getTimelineMessages.usecase";
 import { changeUserFollowigState } from "@/domains/twitter/core/usecases/changeUserFollowigState.usecase";
@@ -25,7 +25,10 @@ const notifications = { hasLoader: onLoaderState, hasNotification: onNotificatio
 
 export const UseGetTimelineMessages = getTimelineMessages({
   HTTP: { get: getService },
-  notifications,
-  store: { onStore: storeData },
+  services: {
+    notifications,
+    store: { onStore: storeData },
+    manipulator: { sortArrayByDate },
+  },
   modelCollecion: { IUsers: ITimeline, IMessage },
 });

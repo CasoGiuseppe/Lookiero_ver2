@@ -1,8 +1,11 @@
 export const getTimelineMessages =
   ({
     HTTP: { get },
-    notifications: { hasLoader, hasNotification },
-    store: { onStore },
+    services: {
+      notifications: { hasLoader, hasNotification },
+      store: { onStore },
+      manipulator: { sortArrayByDate },
+    } = {},
     modelCollecion: { IUsers, IMessage },
   }) =>
   async ({ request: { url = undefined, ...params }, ...args } = {}) => {
@@ -36,14 +39,17 @@ export const getTimelineMessages =
       // 2.7 notify to user successfully
       hasNotification ? hasNotification(onInfoState || { state: true, type: "info", message: "notification" }) : null;
 
-      const xxx = response
-        .map((node) => {
-          return node.messages.reduce((acc, item) => {
-            return [...acc, { ...item, ...{ ...new IUsers(node) } }];
-          }, []);
-        })
-        .flat(2);
+      const xxx = sortArrayByDate({
+        obj: response
+          .map((node) => {
+            return node.messages.reduce((acc, item) => {
+              return [...acc, { ...{ ...new IMessage(item) }, ...{ ...new IUsers(node) } }];
+            }, []);
+          })
+          .flat(2),
+      });
 
+      console.log(xxx);
       // 2.8 stored data
       onStore
         ? onStore({
@@ -51,7 +57,7 @@ export const getTimelineMessages =
             params: response
               .map((node) => {
                 return node.messages.reduce((acc, item) => {
-                  return [...acc, { ...item, ...{ ...new IUsers(node) } }];
+                  return [...acc, { ...{ ...new IMessage(item) }, ...{ ...new IUsers(node) } }];
                 }, []);
               })
               .flat(2),
