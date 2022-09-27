@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { BASE_COSMETIC_STORE } from "@/app/partials/constants";
 
 // actions
-import { CHANGE_LOADER_STATE, CHANGE_NOTIFICATION_STATE } from "./actions";
+import { CHANGE_LOADER_STATE, CHANGE_NOTIFICATION_STATE, REMOVE_NOTIFICATION } from "./actions";
 
 // getters
 import getters from "./getters";
@@ -16,10 +16,19 @@ export const useCosmeticStore = defineStore({
       this.hasLoader.state = state;
     },
 
-    [CHANGE_NOTIFICATION_STATE]({ state = false, type = null, message = "notification" }) {
-      this.hasNotification.state = state;
-      this.hasNotification.type = type;
-      this.hasNotification.message = message;
+    [CHANGE_NOTIFICATION_STATE]({ uuid = null, type = null, message = "notification" }) {
+      this.hasNotification = [
+        ...this.hasNotification,
+        {
+          uuid,
+          type,
+          message,
+        },
+      ];
+    },
+    [REMOVE_NOTIFICATION]({ uuid = null }) {
+      if (!uuid) return;
+      this.hasNotification = this.hasNotification.filter((node) => node.uuid !== uuid);
     },
   },
 

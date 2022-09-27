@@ -48,17 +48,17 @@ export const handleUserByState =
         // 2.2 launch API endpoint
         const response = await get(url);
 
-        console.log(
-          response.reduce((acc, node) => {
-            return [...acc, new IUsers(node)];
-          }, [])
-        );
+        // console.log(
+        //   response.reduce((acc, node) => {
+        //     return [...acc, new IUsers(node)];
+        //   }, [])
+        // );
 
         // 2.7 notify to user successfully
-        hasNotification ? hasNotification(onInfoState || { state: true, type: "info", message: "notification" }) : null;
+        hasNotification ? hasNotification(onInfoState || { type: "info", message: "notification" }) : null;
       } catch ({ message }) {
         // 3. handle response erro
-        hasNotification ? hasNotification(onErrorState || { state: true, type: "error", message }) : null;
+        hasNotification ? hasNotification(onErrorState || { type: "error", message }) : null;
         throw new Error(message);
       } finally {
         // 4. delete loader state

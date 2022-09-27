@@ -52,7 +52,6 @@ export const getTimelineMessages =
         await Promise.all(urls.map((url) => get(url, ...Object.values(url.params || {}))))
       ).flat();
 
-      console.log(response);
       // 2.4 checkif response is empty
       // 2.5 exit from function
       // 2.6 notify to user
@@ -61,14 +60,15 @@ export const getTimelineMessages =
           ? hasNotification(
               onInfoState
                 ? { ...onInfoState, ...{ message: "Sorry! No items found" } }
-                : { state: true, type: "info", message: "Sorry! No items found" }
+                : { type: "info", message: "Sorry! No items found" }
             )
           : null;
         return;
       }
 
       // 2.7 notify to user successfully
-      hasNotification ? hasNotification(onInfoState || { state: true, type: "info", message: "notification" }) : null;
+      console.log(onInfoState);
+      hasNotification ? hasNotification(onInfoState || { type: "info", message: "notification" }) : null;
 
       // 2.8 stored sorted and manipulated data
       if (!onStore) return;
@@ -92,7 +92,7 @@ export const getTimelineMessages =
       });
     } catch ({ message }) {
       // 3. handle response erro
-      hasNotification ? hasNotification(onErrorState || { state: true, type: "error", message }) : null;
+      hasNotification ? hasNotification(onErrorState || { type: "error", message }) : null;
       throw new Error(message);
     } finally {
       // 4. delete loader state

@@ -14,8 +14,8 @@ html,
 body {
   @include text--app;
   @include create-animation($name: 'appear-notify',
-    $from: translateY(-100%),
-    $to: translateY(0),
+    $from: translateX(100%),
+    $to: translateX(0),
     $duration: .5s);
 
   min-height: 100%;

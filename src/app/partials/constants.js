@@ -13,11 +13,7 @@ export const BASE_COSMETIC_STORE = {
   hasLoader: {
     state: false,
   },
-  hasNotification: {
-    state: false,
-    type: null,
-    message: null,
-  },
+  hasNotification: [],
 };
 
 export const BASE_ENDPOINT = "people/";

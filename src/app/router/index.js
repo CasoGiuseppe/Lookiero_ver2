@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // constants
 import { API_BASE_PATH } from "@/app/partials/constants";
 import { GENERIC_ERROR, TIMELINE_SUCCESS, BASE_NOTIFICATION_OBJ as notification } from "@/app/partials/messages";
+import { uuid } from "@/app/partials/helpers";
 
 // usecases
 import { UseGetTimelineMessages, UseHandleUserByState } from "@/domains/twitter/core";
@@ -34,22 +35,22 @@ const router = createRouter({
             request: {
               urls: [`${API_BASE_PATH}following/true`, `${API_BASE_PATH}owner/true`],
             },
-            onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ type: "info", message: TIMELINE_SUCCESS }),
+            onErrorState: notification({ uuid: uuid(), type: "error", message: GENERIC_ERROR }),
+            onInfoState: notification({ uuid: uuid(), type: "info", message: TIMELINE_SUCCESS }),
             $store: twitterStore,
             $actionName: CHANGE_USERS_LIST,
           });
 
           await getUserByOwnState({
             request: { url: `${API_BASE_PATH}following/false` },
-            onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ type: "info", message: "ciccio pasticcio" }),
+            onErrorState: notification({ uuid: uuid(), type: "error", message: GENERIC_ERROR }),
+            onInfoState: notification({ uuid: uuid(), type: "info", message: "ciccio pasticcio" }),
           });
 
           await getUserByOwnState({
             request: { url: `${API_BASE_PATH}following/true` },
-            onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ type: "info", message: "ciccio pasticcio2" }),
+            onErrorState: notification({ uuid: uuid(), type: "error", message: GENERIC_ERROR }),
+            onInfoState: notification({ uuid: uuid(), type: "info", message: "ciccio pasticcio2" }),
           });
           next();
         } catch (e) {
