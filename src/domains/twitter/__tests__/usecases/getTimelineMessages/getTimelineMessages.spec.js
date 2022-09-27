@@ -1,9 +1,12 @@
 import { describe, beforeEach, test, expect } from "vitest";
-import { mockBaseFn, mockThrwoErrorNoFn } from "./index";
+import { mockBaseFn, mockThrwoErrorNoFn, mockAPIResponse } from "./index";
 
 describe("Usecase: getTimelineMessages", () => {
+  let $store;
   let $notify;
-  let noItemsFond = "Sorry! No items found";
+  let noItemsFound = "Sorry! No items found";
+  let itemsFound = "Items founded";
+  let module = "users";
 
   const handler = {
     set: function (target, prop, value) {
@@ -12,6 +15,7 @@ describe("Usecase: getTimelineMessages", () => {
     },
   };
   beforeEach(() => {
+    $store = new Proxy({ module: { users: {} } }, handler);
     $notify = new Proxy({ message: null }, handler);
   });
   test('should throw new Error with message: "getTimelineMessages > check that all required params exist', async () => {
@@ -47,8 +51,23 @@ describe("Usecase: getTimelineMessages", () => {
       },
     });
 
-    expect($notify.message).toBe(noItemsFond);
+    expect($notify.message).toBe(noItemsFound);
   });
 
-  test("should notify correct message when receive API response and save data in store ", async () => {});
+  test.only("should notify correct message when receive API response and save correct sorted data in store ", async () => {
+    await mockBaseFn({
+      request: { urls: ["http://mock_url"] },
+      onInfoState: {
+        $notify,
+        message: itemsFound,
+      },
+      $store,
+      $moduleName: module,
+    });
+
+    const selectedNode = $store.module[module].find((node) => node.name === "me");
+    expect(Object.keys($store.module[module])).toHaveLength(mockAPIResponse.length);
+    expect(typeof $store.module[module]).toBe("object");
+    expect($store.module[module].indexOf(selectedNode)).toBe(0);
+  });
 });

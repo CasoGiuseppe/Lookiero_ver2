@@ -8,7 +8,10 @@ class MockTimeLine {
 }
 
 // mock API response
-const mockAPIResponse = [{ owner: "me", data: { name: "name" }, messages: [{ date: new Date(), text: "text" }] }];
+export const mockAPIResponse = [
+  { owner: true, name: "me", messages: [{ date: new Date(), text: "text" }] },
+  { owner: false, name: "you", messages: [{ date: "Jan 01 2022 12:00:00", text: "text" }] },
+];
 const mockPageResource = (url) => {
   const responseCases = {
     "http://mock_url": mockAPIResponse,
@@ -22,13 +25,24 @@ const mockPageResource = (url) => {
 
 // mock services
 const mockHasNotification = ({ $notify, message }) => {
-  console.log(message);
   $notify.message = message;
 };
+
+const mockStore = ({ $store, $moduleName, params }) => {
+  $store.module[$moduleName] = params;
+};
+
+// mock Date manipulator
+const mockSort = ({ obj }) => obj.sort((prev, next) => new Date(next["date"]) - new Date(prev["date"]));
+const mockDiff = ({ date }) => {
+  const start = new Date();
+  const end = new Date(date);
+  return (start.getTime() - end.getTime()) / 1000;
+};
+
 const mockNotifications = { hasLoader: () => {}, hasNotification: mockHasNotification };
-const mockManipulator = { sortDates: () => {}, getDifferentDates: () => {} };
+const mockManipulator = { sortDates: mockSort, getDifferentDates: mockDiff };
 const mockModels = { IUsers: MockTimeLine, IMessage: MockTimeLine };
-const mockStore = () => {};
 
 export const mockBaseFn = getTimelineMessages({
   HTTP: { get: mockPageResource },
