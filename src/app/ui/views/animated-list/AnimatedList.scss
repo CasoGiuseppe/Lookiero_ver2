@@ -9,4 +9,12 @@
 
   overflow: hidden;
 
+  &__row {
+    padding: var(--sm-spacing-small);
+    border: 1px solid var(--sm-c-gray-100);
+
+    +#{$animatedlist}__row {
+      margin-top: var(--sm-spacing-small)
+    }
+  }
 }

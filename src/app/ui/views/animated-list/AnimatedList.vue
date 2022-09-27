@@ -6,6 +6,7 @@
       :style="{
         transitionDelay: `${index * 0.1}s`,
       }"
+      class="animated-list__row"
     >
       <slot :row="row" name="rows" />
     </li>

@@ -4,7 +4,13 @@
     <section class="twitter-layout__timeline">
       <AnimatedList :rows="twitterList">
         <template #rows="{ row: { author, diffTime: time, message } }">
-          {{ author }}, {{ time }}, {{ message }}
+          <UserDetail>
+            <template #author
+              ><strong>{{ author }}</strong></template
+            >
+            <template #time>{{ time }}</template>
+            <template #message>{{ message }}</template>
+          </UserDetail>
         </template>
       </AnimatedList>
     </section>
@@ -15,6 +21,7 @@ import { computed } from "vue";
 
 // components
 import AnimatedList from "@/app/ui/views/animated-list/AnimatedList.vue";
+import UserDetail from "@/app/ui/components/user-detail/UserDetail.vue";
 
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
