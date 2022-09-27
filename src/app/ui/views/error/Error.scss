@@ -1,0 +1,22 @@
+.error {
+  $error: &;
+
+  &-message {
+    @include text--big;
+
+    align-items: center;
+    display: flex;
+    font-weight: var(--sm-font-weight-bold);
+
+    &::before {
+      align-items: center;
+      display: flex;
+      height: px2rem(30);
+      position: relative;
+      width: px2rem(30);
+
+      content: 'x';
+      color: var(--sm-c-red-200, red);
+    }
+  }
+}
