@@ -28,7 +28,7 @@ describe("Usecase: getTimelineMessages", () => {
     expect.assertions(2);
     try {
       await mockThrwoErrorNoFn({
-        request: { url: "http://mock_url" },
+        request: { urls: ["http://mock_url"] },
         params: {
           value: "param",
         },
@@ -41,7 +41,7 @@ describe("Usecase: getTimelineMessages", () => {
 
   test("should notify to user when response API length === 0", async () => {
     await mockBaseFn({
-      request: { url: "http://noData.response" },
+      request: { urls: ["http://noData.response"] },
       onInfoState: {
         $notify,
       },
@@ -50,5 +50,5 @@ describe("Usecase: getTimelineMessages", () => {
     expect($notify.message).toBe(noItemsFond);
   });
 
-  test.only("should notify correct message when receive API response and save data in store ", async () => {});
+  test("should notify correct message when receive API response and save data in store ", async () => {});
 });

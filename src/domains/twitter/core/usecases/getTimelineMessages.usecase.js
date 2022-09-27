@@ -8,13 +8,13 @@ export const getTimelineMessages =
     } = {},
     modelCollecion: { IUsers, IMessage } = {},
   }) =>
-  async ({ request: { url = undefined, ...params } = {}, ...args } = {}) => {
+  async ({ request: { urls = [], ...params } = {}, ...args } = {}) => {
     // 0. handle error
     // 0.1 check if HTTP get is a function
     if (typeof get !== "function") throw new Error("Usecase > getTimelineMessages > HTTP get is not a funtion");
 
     // 0.2 check if all required params exist
-    const requiredOnFail = [url !== undefined, Object.keys(params).lenght !== 0].some((key) => key === false);
+    const requiredOnFail = [urls.length !== 0, Object.keys(params).lenght !== 0].some((key) => key === false);
     if (requiredOnFail) throw new Error("Usecase > getTimelineMessages > check that all required params exist");
 
     // 0.3 check if models are classes
@@ -30,8 +30,10 @@ export const getTimelineMessages =
       hasLoader ? hasLoader({ state: true }) : null;
 
       // 2.2 launch API endpoint
-      // 2.3 buil object to save in store
-      const response = await get(url, ...Object.values(params));
+      // 2.3 buil API aggregator to save in store
+      const response = await (
+        await Promise.all(urls.map((url) => get(url, ...Object.values(url.params || {}))))
+      ).flat();
 
       // 2.4 checkif response is empty
       // 2.5 exit from function

@@ -21,7 +21,7 @@ onMounted(async () => {
 
   await UseGetTimelineMessages({
     request: {
-      url: `${API_BASE_PATH}following/true`,
+      urls: [`${API_BASE_PATH}following/true`, `${API_BASE_PATH}owner/true`],
     },
     onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
     onInfoState: notification({ type: "info", message: API_SUCCESS }),
