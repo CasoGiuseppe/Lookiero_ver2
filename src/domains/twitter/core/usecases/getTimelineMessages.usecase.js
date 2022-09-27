@@ -1,3 +1,15 @@
+/**
+ * usecase to get sorted timeline messages
+ * @param {function} get - HTTP function to get API endpoint response
+ * @param {function} hasLoader - method to handle loader
+ * @param {function} hasNotification - method to handle user notification
+ * @param {function} onStore - method to handle store
+ * @param {function} sortDates - method to manipulate response and get sorted result
+ * @param {function} getDifferentDates - method to manipulate date
+ * @param {Class} IUsers - class interface to transform response
+ * @param {Class} IMessage - class interface to transform response
+ * @returns {Array}
+ */
 export const getTimelineMessages =
   ({
     HTTP: { get },
@@ -8,6 +20,11 @@ export const getTimelineMessages =
     } = {},
     modelCollecion: { IUsers, IMessage } = {},
   }) =>
+  /**
+   * @param {array} urls - urls collection that is used to get correct response
+   * @param {array} params - optionals parameters that are used in endpoint get
+   * @param {array} args - optionals parameters that are used in usecase
+   */
   async ({ request: { urls = [], ...params } = {}, ...args } = {}) => {
     // 0. handle error
     // 0.1 check if HTTP get is a function
@@ -24,7 +41,7 @@ export const getTimelineMessages =
 
     const { onErrorState, onInfoState, ...rest } = args;
 
-    // 2. launch endpoint get to return all users
+    // 2. launch endpoint get to return all users by gived type
     try {
       // 2.1 launch loader to wait endpoint response
       hasLoader ? hasLoader({ state: true }) : null;

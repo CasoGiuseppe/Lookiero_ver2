@@ -1,12 +1,12 @@
 // services
-import { getService } from "@/domains/twitter/infrastructure/repositories/twitter.repository.js";
+import { getService, patchService } from "@/domains/twitter/infrastructure/repositories/twitter.repository.js";
 import Notification from "@/app/services/notification.services";
 import Store from "@/app/services/store.services";
 import Date from "@/domains/twitter/infrastructure/services/date.manipulator.services";
 
 // usecase
 import { getTimelineMessages } from "@/domains/twitter/core/usecases/getTimelineMessages.usecase";
-import { changeUserFollowigState } from "@/domains/twitter/core/usecases/changeUserFollowigState.usecase";
+import { handleUserByState } from "@/domains/twitter/core/usecases/handleUserByState.usecase";
 import { addUserMessage } from "@/domains/twitter/core/usecases/addUserMessage.usecase";
 
 // model interfaces
@@ -26,4 +26,11 @@ export const UseGetTimelineMessages = getTimelineMessages({
     manipulator: { sortDates: sortArrayByDate, getDifferentDates: getTimeBetweenDates },
   },
   modelCollecion: { IUsers: ITimeline, IMessage },
+});
+
+export const UseHandleUserByState = handleUserByState({
+  HTTP: { get: getService },
+  services: {
+    notifications,
+  },
 });

@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // constants
 import { API_BASE_PATH } from "@/assets/partials/constants";
-import { GENERIC_ERROR, API_SUCCESS, BASE_NOTIFICATION_OBJ as notification } from "@/app/partials/messages";
+import { GENERIC_ERROR, TIMELINE_SUCCESS, BASE_NOTIFICATION_OBJ as notification } from "@/app/partials/messages";
 
 // usecases
-import { UseGetTimelineMessages } from "@/domains/twitter/core";
+import { UseGetTimelineMessages, UseHandleUserByState } from "@/domains/twitter/core";
 
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
@@ -24,18 +24,30 @@ const router = createRouter({
         // pinia
         const twitterStore = useTwitterStore();
 
+        // usecases
+        const { getUserByOwnState } = UseHandleUserByState();
+
+        // 1. get timeline messages
+        // 2. get following users
         try {
           await UseGetTimelineMessages({
             request: {
               urls: [`${API_BASE_PATH}following/true`, `${API_BASE_PATH}owner/true`],
             },
             onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ type: "info", message: API_SUCCESS }),
+            onInfoState: notification({ type: "info", message: TIMELINE_SUCCESS }),
             $store: twitterStore,
             $actionName: CHANGE_USERS_LIST,
           });
+
+          await getUserByOwnState({
+            request: { url: "url" },
+            onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
+            onInfoState: notification({ type: "info", message: TIMELINE_SUCCESS }),
+          });
           next();
         } catch (e) {
+          console.log(e);
           next("/error");
         }
       },
