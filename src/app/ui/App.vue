@@ -7,7 +7,7 @@
 
   <!-- notification module-->
   <transition mode="out-in" name="appear-notify">
-    <Notification
+    <NotificationComp
       v-if="notificationStore.state"
       @close="closeNotification"
       :state="notificationStore.state"
@@ -15,22 +15,22 @@
       :key="`${notificationStore.type}-${notificationStore.message.replace(/\s/g, '')}`"
     >
       <template #message> {{ notificationStore.message }} </template>
-    </Notification>
+    </NotificationComp>
   </transition>
 </template>
 <script setup>
 import { RouterView } from "vue-router";
 
 // components
-import Notification from "@/app/ui/components/base/base-notification/BaseNotification.vue";
+import NotificationComp from "@/app/ui/components/base/base-notification/BaseNotification.vue";
 
 // store
 import { useCosmeticStore } from "@/app/stores/cosmetic";
 import { GET_LOADER_STATE, GET_NOTIFICATION_MODE } from "@/app/stores/cosmetic/getters";
 import { storeToRefs } from "pinia";
 
-// usecase
-import { UseNotifications } from "@/domains/twitter/core";
+// services
+import Notification from "@/app/services/notification.services";
 
 // cosmetic pina
 const cosmeticStore = useCosmeticStore();
@@ -38,9 +38,8 @@ const cosmeticRefs = storeToRefs(cosmeticStore);
 const loaderStore = cosmeticRefs[GET_LOADER_STATE].value;
 const notificationStore = cosmeticRefs[GET_NOTIFICATION_MODE].value;
 
-const { onNotificationMessage } = UseNotifications();
-
 // actions
-const closeNotification = () => onNotificationMessage({});
+const { hasNotification } = new Notification();
+const closeNotification = () => hasNotification({});
 </script>
 <style lang="scss" src="@/assets/styles/index.scss" />

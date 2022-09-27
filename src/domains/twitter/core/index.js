@@ -8,7 +8,6 @@ import Date from "@/domains/twitter/infrastructure/services/date.manipulator.ser
 import { getTimelineMessages } from "@/domains/twitter/core/usecases/getTimelineMessages.usecase";
 import { changeUserFollowigState } from "@/domains/twitter/core/usecases/changeUserFollowigState.usecase";
 import { addUserMessage } from "@/domains/twitter/core/usecases/addUserMessage.usecase";
-import { setUserNotification } from "@/app/usecases/setUserNotification.usecase";
 
 // model interfaces
 import ITimeline from "@/domains/twitter/core/models/ITimeline.model";
@@ -17,13 +16,7 @@ import IMessage from "@/domains/twitter/core/models/IMessage.model";
 const { hasLoader, hasNotification } = new Notification();
 const { storeData } = new Store();
 const { sortArrayByDate, getTimeBetweenDates } = new Date();
-
-export const UseNotifications = setUserNotification({
-  onNotification: hasNotification,
-  onLoader: hasLoader,
-});
-const { onNotificationMessage, onLoaderState } = UseNotifications();
-const notifications = { hasLoader: onLoaderState, hasNotification: onNotificationMessage };
+const notifications = { hasLoader: hasLoader, hasNotification: hasNotification };
 
 export const UseGetTimelineMessages = getTimelineMessages({
   HTTP: { get: getService },

@@ -18,7 +18,7 @@ describe("Usecase: getTimelineMessages", () => {
     $store = new Proxy({ module: { users: {} } }, handler);
     $notify = new Proxy({ message: null }, handler);
   });
-  test('should throw new Error with message: "getTimelineMessages > check that all required params exist', async () => {
+  test("should throw new Error with message: getTimelineMessages > check that all required params exist", async () => {
     expect.assertions(2);
     try {
       await mockBaseFn({});
@@ -28,7 +28,7 @@ describe("Usecase: getTimelineMessages", () => {
     }
   });
 
-  test('should throw new Error with message: "Usecase > getTimelineMessages > HTTP get is not a funtion', async () => {
+  test("should throw new Error with message: Usecase > getTimelineMessages > HTTP get is not a funtion", async () => {
     expect.assertions(2);
     try {
       await mockThrwoErrorNoFn({
