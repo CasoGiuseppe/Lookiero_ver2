@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // constants
-import { API_BASE_PATH } from "@/assets/partials/constants";
+import { API_BASE_PATH } from "@/app/partials/constants";
 import { GENERIC_ERROR, TIMELINE_SUCCESS, BASE_NOTIFICATION_OBJ as notification } from "@/app/partials/messages";
 
 // usecases
@@ -41,9 +41,15 @@ const router = createRouter({
           });
 
           await getUserByOwnState({
-            request: { url: "url" },
+            request: { url: `${API_BASE_PATH}following/false` },
             onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ type: "info", message: TIMELINE_SUCCESS }),
+            onInfoState: notification({ type: "info", message: "ciccio pasticcio" }),
+          });
+
+          await getUserByOwnState({
+            request: { url: `${API_BASE_PATH}following/true` },
+            onErrorState: notification({ type: "error", message: GENERIC_ERROR }),
+            onInfoState: notification({ type: "info", message: "ciccio pasticcio2" }),
           });
           next();
         } catch (e) {

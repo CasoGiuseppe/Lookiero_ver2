@@ -4,6 +4,7 @@
  * @param {function} patch - HTTP function to patch API endpoint response
  * @param {function} hasLoader - method to handle loader
  * @param {function} hasNotification - method to handle user notification
+ * @param {Class} IUsers - class interface to transform response
  * @returns {Array}
  */
 export const handleUserByState =
@@ -12,6 +13,7 @@ export const handleUserByState =
     services: {
       notifications: { hasLoader, hasNotification },
     },
+    modelCollecion: { IUsers } = {},
   }) =>
   () => {
     // 0. handle error
@@ -27,9 +29,14 @@ export const handleUserByState =
      */
     const getUserByOwnState = async ({ request: { url = undefined, ...params } = {}, ...args }) => {
       // 0. handle error
-      // 0.2 check if all required params exist
+      // 0.1 check if all required params exist
       const requiredOnFail = [url !== undefined, Object.keys(params).lenght !== 0].some((key) => key === false);
       if (requiredOnFail) throw new Error("Usecase > handleUserByState > check that all required params exist");
+
+      // 0.2 check if models are classes
+      const requiredClasses = [IUsers.prototype];
+      if (requiredClasses.some((node) => node === undefined))
+        throw new Error("Usecase > handleUserByState > All models should be a class");
 
       const { onErrorState, onInfoState, ...rest } = args;
       console.log(args);
@@ -41,7 +48,11 @@ export const handleUserByState =
         // 2.2 launch API endpoint
         const response = await get(url);
 
-        console.log(response);
+        console.log(
+          response.reduce((acc, node) => {
+            return [...acc, new IUsers(node)];
+          }, [])
+        );
 
         // 2.7 notify to user successfully
         hasNotification ? hasNotification(onInfoState || { state: true, type: "info", message: "notification" }) : null;

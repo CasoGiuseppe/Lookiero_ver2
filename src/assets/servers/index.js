@@ -1,13 +1,10 @@
-import { Server } from "miragejs";
+import { createServer } from "miragejs";
 import USERS from "../__mocks__/user.mock";
-import {
-  API_NAMESPACE,
-  API_ENDPOINT,
-  // API_DELAY_MAX,
-  // API_DELAY_MIN,
-} from "../partials/constants";
+import { API_NAMESPACE, API_ENDPOINT, API_DELAY_MAX, API_DELAY_MIN } from "@/app/partials/constants";
 
-const mockServer = new Server({
+const randomValue = ({ max = 1, min = 0 }) => Math.floor(Math.random() * max) + min;
+
+const mockServer = createServer({
   seeds(server) {
     server.db.loadData({
       users: USERS,
@@ -16,19 +13,21 @@ const mockServer = new Server({
 
   routes() {
     this.namespace = API_NAMESPACE;
+    //this.timing = randomValue({ max: API_DELAY_MAX, min: API_DELAY_MIN });
 
     // get users info
-    this.get(`${API_ENDPOINT}`, (schema) => schema.db.users);
-
-    // get user by id
-    this.get(`${API_ENDPOINT}/id/:id/`, (schema, request) => {
-      return schema.db.users.findBy({ id: request.params.id });
+    this.get(`${API_ENDPOINT}`, (schema) => schema.db.users, {
+      timing: randomValue({ max: API_DELAY_MAX, min: API_DELAY_MIN }),
     });
 
     // get user by owner type
-    this.get(`${API_ENDPOINT}/:type/:value`, (schema, request) => {
-      return schema.db.users.where({ [request.params.type]: request.params.value });
-    });
+    this.get(
+      `${API_ENDPOINT}/:type/:value`,
+      (schema, request) => {
+        return schema.db.users.where({ [request.params.type]: request.params.value });
+      },
+      { timing: randomValue({ max: API_DELAY_MAX, min: API_DELAY_MIN }) }
+    );
 
     // update user following state
     this.patch(`${API_ENDPOINT}/id/:id`, (schema, request) => {

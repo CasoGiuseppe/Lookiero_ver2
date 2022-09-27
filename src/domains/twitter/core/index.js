@@ -10,6 +10,7 @@ import { handleUserByState } from "@/domains/twitter/core/usecases/handleUserByS
 import { addUserMessage } from "@/domains/twitter/core/usecases/addUserMessage.usecase";
 
 // model interfaces
+import IUsers from "@/domains/twitter/core/models/IUsers.model";
 import ITimeline from "@/domains/twitter/core/models/ITimeline.model";
 import IMessage from "@/domains/twitter/core/models/IMessage.model";
 
@@ -33,4 +34,5 @@ export const UseHandleUserByState = handleUserByState({
   services: {
     notifications,
   },
+  modelCollecion: { IUsers },
 });

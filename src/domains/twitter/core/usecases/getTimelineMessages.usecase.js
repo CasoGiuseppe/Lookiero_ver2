@@ -52,6 +52,7 @@ export const getTimelineMessages =
         await Promise.all(urls.map((url) => get(url, ...Object.values(url.params || {}))))
       ).flat();
 
+      console.log(response);
       // 2.4 checkif response is empty
       // 2.5 exit from function
       // 2.6 notify to user
