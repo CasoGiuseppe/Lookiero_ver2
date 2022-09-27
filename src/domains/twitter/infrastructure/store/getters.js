@@ -1,5 +1,5 @@
-export const GET_USESRS_LIST = "getUsersList";
+export const GET_TIMELINE_LIST = "getUsersList";
 
 export default {
-  [GET_USESRS_LIST]: (state) => state.timeline,
+  [GET_TIMELINE_LIST]: (state) => state.timeline,
 };

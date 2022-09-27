@@ -4,7 +4,12 @@
   display: flex;
   flex: 0 0 min(90vw, px2rem(600));
   flex-direction: column;
-  gap: px2rem(15);
+  gap: var(--sm-spacing-medium);
+
+  background: var(--sm-c-white);
+  border: 1px solid var(--sm-c-gray-200);
+  border-radius: var(--sm-spacing-xsmall);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 
   @include breakpoint('tablet-pt') {
     flex: 0 0 min(90vw, px2rem(1000));
@@ -12,12 +17,11 @@
   }
 
   >* {
-    padding: px2rem(10);
+    padding: var(--sm-spacing-small, 4);
   }
 
   &__users {
     flex: 0 0 40%;
-    background: violet;
 
     @include breakpoint('tablet-ld') {
       flex: 0 0 30%;
@@ -26,6 +30,5 @@
 
   &__timeline {
     flex: 2;
-    background: yellow
   }
 }
