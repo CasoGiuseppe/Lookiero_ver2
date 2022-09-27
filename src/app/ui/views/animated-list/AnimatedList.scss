@@ -1,7 +1,8 @@
 .animated-list {
   $animatedlist: &;
+  border: 1px solid var(--sm-c-gray-100);
 
-  @include create-animation($name: 'appear-teams-item',
+  @include create-animation($name: 'appear-list-item',
     $from: translateX(50%),
     $to: translateX(-50%),
     $duration: .4s,
@@ -9,9 +10,22 @@
 
   overflow: hidden;
 
+  &__title {
+    @include text--app;
+
+    padding: var(--sm-spacing-small);
+
+    background: var(--sm-c-blue-500);
+    color: var(--sm-c-white);
+
+    +#{$animatedlist}__table {
+      margin-top: var(--sm-spacing-small);
+    }
+  }
+
   &__row {
     padding: var(--sm-spacing-small);
-    border: 1px solid var(--sm-c-gray-100);
+    border-bottom: 1px solid var(--sm-c-gray-100);
 
     +#{$animatedlist}__row {
       margin-top: var(--sm-spacing-small)

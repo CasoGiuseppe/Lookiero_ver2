@@ -1,12 +1,10 @@
 .user-detail {
   $userdetail: &;
+
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-
-  &__author,
-  &__time {
-    flex: 0 0 50%
-  }
+  justify-content: space-between;
 
   &__author,
   &__message {
@@ -16,24 +14,19 @@
   &__author {
     align-items: center;
     display: flex;
-    color: var(--sm-c-blue-500, black);
+    line-height: normal;
+    padding: var(--sm-spacing-xsmall) var(--sm-spacing-small);
 
-    &::before {
-      height: var(--sm-spacing-small);
-      flex: 0 0 var(--sm-spacing-small);
-      margin-right: var(--sm-spacing-xsmall);
-
-      background: var(--sm-c-yellow-300);
-      border-radius: 50%;
-      content: '';
-    }
+    background: var(--sm-c-blue-300);
+    border-radius: var(--sm-spacing-xsmall);
+    color: var(--sm-c-white, white);
 
     +#{$userdetail}__time {
       text-align: right;
     }
 
     ~#{$userdetail}__message {
-      margin-top: var(--sm-spacing-small);
+      margin-top: var(--sm-spacing-medium);
     }
   }
 
@@ -43,6 +36,7 @@
   }
 
   &__message {
+    flex: 0 0 100%;
     color: var(--sm-c-gray-400, black)
   }
 }

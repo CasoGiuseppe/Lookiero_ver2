@@ -3,6 +3,7 @@
     <aside class="twitter-layout__users">users</aside>
     <section class="twitter-layout__timeline">
       <AnimatedList :rows="twitterList">
+        <template #title>Timeline</template>
         <template #rows="{ row: { author, diffTime: time, message } }">
           <UserDetail>
             <template #author
