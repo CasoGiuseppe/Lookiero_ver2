@@ -1,6 +1,12 @@
 <template>
   <transition-group appear class="animated-list" tag="ul" name="appear-teams-item">
-    <li v-for="row in rows" :key="value">
+    <li
+      v-for="(row, index) in rows"
+      :key="row"
+      :style="{
+        transitionDelay: `${index * 0.1}s`,
+      }"
+    >
       <slot :row="row" name="rows" />
     </li>
   </transition-group>
@@ -14,3 +20,4 @@ defineProps({
   },
 });
 </script>
+<style lang="scss" src="./AnimatedList.scss" />

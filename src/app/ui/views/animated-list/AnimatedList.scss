@@ -1,3 +1,12 @@
 .animated-list {
   $animatedlist: &;
+
+  @include create-animation($name: 'appear-teams-item',
+    $from: translateX(50%),
+    $to: translateX(-50%),
+    $duration: .4s,
+  );
+
+  overflow: hidden;
+
 }
