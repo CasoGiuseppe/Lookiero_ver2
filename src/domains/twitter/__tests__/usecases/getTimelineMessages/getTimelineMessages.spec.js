@@ -54,7 +54,7 @@ describe("Usecase: getTimelineMessages", () => {
     expect($notify.message).toBe(noItemsFound);
   });
 
-  test.only("should notify correct message when receive API response and save correct sorted data in store ", async () => {
+  test("should notify correct message when receive API response and save correct sorted data in store ", async () => {
     await mockBaseFn({
       request: { urls: ["http://mock_url"] },
       onInfoState: {
