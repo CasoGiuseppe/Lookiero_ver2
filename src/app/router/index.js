@@ -18,7 +18,7 @@ const router = createRouter({
       path: "/",
       name: "home",
       components: {
-        default: () => import("@/app/ui/views/base-view/BaseView.vue"),
+        default: () => import("@/app/ui/views/twitter-layout/TwitterLayout.vue"),
       },
       beforeEnter: async (to, from, next) => {
         // pinia

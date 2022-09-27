@@ -1,0 +1,31 @@
+.twitter-layout {
+  $mainpage: &;
+
+  display: flex;
+  flex: 0 0 min(90vw, px2rem(600));
+  flex-direction: column;
+  gap: px2rem(15);
+
+  @include breakpoint('tablet-pt') {
+    flex: 0 0 min(90vw, px2rem(1000));
+    flex-direction: row;
+  }
+
+  >* {
+    padding: px2rem(10);
+  }
+
+  &__users {
+    flex: 0 0 40%;
+    background: violet;
+
+    @include breakpoint('tablet-ld') {
+      flex: 0 0 30%;
+    }
+  }
+
+  &__timeline {
+    flex: 2;
+    background: yellow
+  }
+}
