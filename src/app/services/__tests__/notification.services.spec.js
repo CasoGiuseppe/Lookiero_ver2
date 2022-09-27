@@ -17,13 +17,13 @@ describe("Service: notification", () => {
     cosmeticStore = useCosmeticStore();
   });
 
-  test.only("should store correct loader state", async () => {
+  test("should store correct loader state", async () => {
     const { hasLoader } = notification;
     hasLoader({ state: true });
     expect(cosmeticStore[GET_LOADER_STATE].state).toBe(true);
   });
 
-  test.only("should store correct notification state", async () => {
+  test("should store correct notification state", async () => {
     const { hasNotification } = notification;
     const notifyState = { state: true, type: "info", message: "Sorry! No items found" };
     const getterStore = cosmeticStore[GET_NOTIFICATION_MODE];
