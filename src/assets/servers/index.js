@@ -26,8 +26,8 @@ const mockServer = new Server({
     });
 
     // get user by owner type
-    this.get(`${API_ENDPOINT}/owner/:owner`, (schema, request) => {
-      return schema.db.users.where({ owner: request.params.owner });
+    this.get(`${API_ENDPOINT}/:type/:value`, (schema, request) => {
+      return schema.db.users.where({ [request.params.type]: request.params.value });
     });
 
     // update user following state

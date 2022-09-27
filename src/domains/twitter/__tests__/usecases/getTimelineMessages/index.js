@@ -8,9 +8,10 @@ class MockTimeLine {
 }
 
 // mock API response
+const mockAPIResponse = [{ owner: "me", data: { name: "name" }, messages: [{ date: new Date(), text: "text" }] }];
 const mockPageResource = (url) => {
   const responseCases = {
-    "http://mock_url": { data: [{ param: "value" }] },
+    "http://mock_url": mockAPIResponse,
     "http://noData.response": [],
     "http://mock_throw_error": () => {
       throw new Error();

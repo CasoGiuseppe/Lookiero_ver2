@@ -19,11 +19,11 @@ export default [
   },
   {
     owner: false,
+    following: false,
     data: {
       name: "Esther",
       age: 40,
       location: "Madrid",
-      following: false,
     },
     messages: [
       {
@@ -46,11 +46,11 @@ export default [
   },
   {
     owner: false,
+    following: false,
     data: {
       name: "Beatriz",
       age: 40,
       location: "Madrid",
-      following: false,
     },
     messages: [
       {
@@ -65,11 +65,11 @@ export default [
   },
   {
     owner: false,
+    following: false,
     data: {
       name: "Ben",
       age: 40,
       location: "Madrid",
-      following: false,
     },
     messages: [
       {
@@ -92,11 +92,11 @@ export default [
   },
   {
     owner: false,
+    following: false,
     data: {
       name: "Bob",
       age: 16,
       location: "Siviglia",
-      following: false,
     },
     messages: [
       {
@@ -111,11 +111,11 @@ export default [
   },
   {
     owner: false,
+    following: true,
     data: {
       name: "Alice",
       age: 20,
       location: "Madrid",
-      following: true,
     },
     messages: [
       {
@@ -134,11 +134,11 @@ export default [
   },
   {
     owner: false,
+    following: true,
     data: {
       name: "Maria",
       age: 60,
       location: "Madrid",
-      following: true,
     },
     messages: [
       {
@@ -157,11 +157,11 @@ export default [
   },
   {
     owner: false,
+    following: true,
     data: {
       name: "Elena",
       age: 35,
       location: "Toledo",
-      following: true,
     },
     messages: [
       {

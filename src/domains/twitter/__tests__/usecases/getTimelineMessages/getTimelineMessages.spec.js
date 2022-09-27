@@ -49,4 +49,6 @@ describe("Usecase: getTimelineMessages", () => {
 
     expect($notify.message).toBe(noItemsFond);
   });
+
+  test.only("should notify correct message when receive API response and save data in store ", async () => {});
 });
