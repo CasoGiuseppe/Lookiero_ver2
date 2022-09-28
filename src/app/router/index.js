@@ -43,7 +43,7 @@ const router = createRouter({
 
           // `${API_BASE_PATH}following/false` }
           await getUserByOwnState({
-            request: { url: "url" },
+            request: { url: `${API_BASE_PATH}following/false` },
             onErrorState: notification({ uuid: uuid() }),
             onInfoState: notification({ uuid: uuid(), message: "ciccio pasticcio" }),
           });

@@ -16,6 +16,8 @@
   color: var(--sm-c-white);
   z-index: 9;
 
+  transition: top .6s var(--sm-ease-out, linear);
+
   &::backdrop {
     background: rgb(0 0 0 / .4);
   }
