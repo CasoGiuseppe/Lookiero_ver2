@@ -6,9 +6,11 @@
           <template #title>{{ key }}</template>
           <template #rows="{ row: { id, author, following } }">
             <UserDetail>
-              <template #author
-                ><button @click="setCurrentTimeline(id)">{{ author }}</button></template
-              >
+              <template #author>
+                <button :data-selected="twitterSelectedUser.id === id ? true : null" @click="setCurrentTimeline(id)">
+                  {{ author }}
+                </button>
+              </template>
               <template #action>
                 <BaseButton
                   :id="id"
@@ -25,7 +27,7 @@
       </template>
     </aside>
     <section class="twitter-layout__timeline">
-      <AnimatedList :rows="twitterList">
+      <AnimatedList :rows="twitterList" complex>
         <template #title>Timeline</template>
         <template #rows="{ row: { author, diffTime: time, message } }">
           <UserDetail>
@@ -41,7 +43,7 @@
   </section>
 </template>
 <script setup>
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { API_BASE_PATH } from "@/app/partials/constants";
 import { TIMELINE_UPDATE_SUCCESS } from "@/app/partials/messages";
 
@@ -56,19 +58,27 @@ import { useTimeline } from "@/app/composables/timeline.composable";
 
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
-import { GET_TIMELINE_LIST, GET_USERS } from "@/domains/twitter/infrastructure/store/getters.js";
+import { GET_TIMELINE_LIST, GET_USERS, GET_SELECTED_USER } from "@/domains/twitter/infrastructure/store/getters";
+import { CHANGE_SELECTED_USER } from "@/domains/twitter/infrastructure/store/actions";
 
 // pinia
 const twitterStore = useTwitterStore();
 const twitterList = computed(() => twitterStore[GET_TIMELINE_LIST]);
 const twitterUsers = computed(() => {
   return {
-    follow: twitterStore[GET_USERS]?.filter((node) => node.following === false),
-    following: twitterStore[GET_USERS]?.filter((node) => node.following === true),
+    follow: twitterStore[GET_USERS]?.filter((node) => node.following === false).sort(),
+    following: twitterStore[GET_USERS]?.filter((node) => node.following === true).sort(),
   };
 });
+const twitterSelectedUser = computed(() => twitterStore[GET_SELECTED_USER]);
 
 const updateUser = async ({ state, id }) => useChangeUserFollower({ state, id, callback: useUsersFollower });
-const setCurrentTimeline = async (id) => await useTimeline([`${API_BASE_PATH}id/${id}`], TIMELINE_UPDATE_SUCCESS);
+const setCurrentTimeline = async (id) =>
+  twitterStore[CHANGE_SELECTED_USER]({ user: twitterSelectedUser.value.id !== id ? { id } : {} });
+
+watch(twitterSelectedUser, async ({ id }) => {
+  await useTimeline(id ? { urls: [`${API_BASE_PATH}id/${id}`], message: TIMELINE_UPDATE_SUCCESS } : {});
+});
+// await useTimeline([`${API_BASE_PATH}id/${id}`], TIMELINE_UPDATE_SUCCESS);
 </script>
 <style lang="scss" src="./TwitterLayout.scss" />

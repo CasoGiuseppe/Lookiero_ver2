@@ -6,7 +6,7 @@
     <transition-group appear tag="ul" name="appear-list-item" class="animated-list__table" @after-enter="endEnterEvent">
       <li
         v-for="(row, index) in rows"
-        :key="row.id"
+        :key="complex ? `${row.id}-${index}` : row.id"
         :style="{
           transitionDelay: `${index * 0.1}s`,
         }"
@@ -23,6 +23,11 @@ defineProps({
     type: Array,
     default: () => [],
     required: true,
+  },
+
+  complex: {
+    type: Boolean,
+    default: false,
   },
 });
 

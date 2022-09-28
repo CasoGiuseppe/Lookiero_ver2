@@ -31,12 +31,27 @@
         flex-direction: column;
         position: relative;
 
+        cursor: pointer;
+
+        &[data-selected] {
+          &:after {
+            background: var(--sm-c-yellow-300, black);
+            width: 110%;
+          }
+        }
+
         &:after {
-          flex: 1px;
-          width: 100%;
+          bottom: 0;
+          height: 1px;
+          left: 50%;
+          position: absolute;
+          width: 60%;
 
           background: var(--sm-c-gray-200, black);
-          content: ''
+          content: '';
+
+          transform: translateX(-50%);
+          transition: color .6s linear, width .6s var(--sm-ease-out, linear);
         }
       }
     }
