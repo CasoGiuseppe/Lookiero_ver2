@@ -35,22 +35,23 @@ const router = createRouter({
             request: {
               urls: [`${API_BASE_PATH}following/true`, `${API_BASE_PATH}owner/true`],
             },
-            onErrorState: notification({ uuid: uuid(), type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ uuid: uuid(), type: "info", message: TIMELINE_SUCCESS }),
+            onErrorState: notification({ uuid: uuid() }),
+            onInfoState: notification({ uuid: uuid(), message: TIMELINE_SUCCESS }),
             $store: twitterStore,
             $actionName: CHANGE_USERS_LIST,
           });
 
+          // `${API_BASE_PATH}following/false` }
           await getUserByOwnState({
-            request: { url: `${API_BASE_PATH}following/false` },
-            onErrorState: notification({ uuid: uuid(), type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ uuid: uuid(), type: "info", message: "ciccio pasticcio" }),
+            request: { url: "url" },
+            onErrorState: notification({ uuid: uuid() }),
+            onInfoState: notification({ uuid: uuid(), message: "ciccio pasticcio" }),
           });
 
           await getUserByOwnState({
             request: { url: `${API_BASE_PATH}following/true` },
-            onErrorState: notification({ uuid: uuid(), type: "error", message: GENERIC_ERROR }),
-            onInfoState: notification({ uuid: uuid(), type: "info", message: "ciccio pasticcio2" }),
+            onErrorState: notification({ uuid: uuid() }),
+            onInfoState: notification({ uuid: uuid(), message: "ciccio pasticcio2" }),
           });
           next();
         } catch (e) {

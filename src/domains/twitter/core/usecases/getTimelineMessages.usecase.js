@@ -59,7 +59,7 @@ export const getTimelineMessages =
         hasNotification
           ? hasNotification(
               onInfoState
-                ? { ...onInfoState, ...{ message: "Sorry! No items found" } }
+                ? { ...onInfoState, ...{ message: "Sorry! No items found", type: "info" } }
                 : { type: "info", message: "Sorry! No items found" }
             )
           : null;
@@ -67,8 +67,11 @@ export const getTimelineMessages =
       }
 
       // 2.7 notify to user successfully
-      console.log(onInfoState);
-      hasNotification ? hasNotification(onInfoState || { type: "info", message: "notification" }) : null;
+      hasNotification
+        ? hasNotification(
+            { ...onInfoState, ...{ type: "info" } } || { uuid: "000", type: "info", message: "notification" }
+          )
+        : null;
 
       // 2.8 stored sorted and manipulated data
       if (!onStore) return;
@@ -92,7 +95,9 @@ export const getTimelineMessages =
       });
     } catch ({ message }) {
       // 3. handle response erro
-      hasNotification ? hasNotification(onErrorState || { type: "error", message }) : null;
+      hasNotification
+        ? hasNotification({ ...onErrorState, ...{ type: "error", message } } || { uuid: "000", type: "error", message })
+        : null;
       throw new Error(message);
     } finally {
       // 4. delete loader state

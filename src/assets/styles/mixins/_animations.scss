@@ -48,7 +48,7 @@
     border-radius: 50%;
     border: #{$borderSize * 1px} solid $color;
     border-color: $color transparent $color transparent;
-    content: "";
+    content: '';
 
     animation: spinner 1.2s linear infinite;
   }

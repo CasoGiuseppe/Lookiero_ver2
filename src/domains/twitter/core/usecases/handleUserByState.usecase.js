@@ -55,10 +55,18 @@ export const handleUserByState =
         // );
 
         // 2.7 notify to user successfully
-        hasNotification ? hasNotification(onInfoState || { type: "info", message: "notification" }) : null;
+        hasNotification
+          ? hasNotification(
+              { ...onInfoState, ...{ type: "info" } } || { uuid: "000", type: "info", message: "notification" }
+            )
+          : null;
       } catch ({ message }) {
         // 3. handle response erro
-        hasNotification ? hasNotification(onErrorState || { type: "error", message }) : null;
+        hasNotification
+          ? hasNotification(
+              { ...onErrorState, ...{ type: "error", message } } || { uuid: "000", type: "error", message }
+            )
+          : null;
         throw new Error(message);
       } finally {
         // 4. delete loader state

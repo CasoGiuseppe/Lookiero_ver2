@@ -1,13 +1,12 @@
 <template>
-  <section :class="[loaderStore.state === true ? 'is-loading is-blocked' : null, 'root-layout']">
+  <section :class="[loaderStore.state === true ? 'is-loading is-blocked' : null, 'root-layout']" data-message="ciccio">
     <section class="root-layout__content">
-      {{ notificationHeight }}
       <RouterView />
     </section>
   </section>
 
   <!-- notification module-->
-  <transition-group appear mode="out-in" name="appear-notify" @after-enter="endEnterEvent">
+  <transition-group appear mode="out-in" name="appear-notify" @enter="endEnterEvent">
     <Notification
       v-for="(notification, index) in notificationStore"
       :key="`${notification.type}-${notification.message.replace(/\s/g, '')}`"
@@ -15,8 +14,9 @@
       :state="notification.state"
       :type="notification.type"
       :uuid="notification.uuid"
+      :data-index="index"
       :style="{
-        top: `${index * notificationHeight}px`,
+        top: `${notificationHeight.values[index - 1] || 0}px`,
       }"
     >
       <template #message> {{ notification.message }} </template>
@@ -25,7 +25,7 @@
 </template>
 <script setup>
 import { RouterView } from "vue-router";
-import { computed, ref } from "vue";
+import { computed, reactive } from "vue";
 // components
 import Notification from "@/app/ui/components/base/base-notification/BaseNotification.vue";
 
@@ -42,8 +42,9 @@ const loaderStore = cosmeticRefs[GET_LOADER_STATE].value;
 const notificationStore = computed(() => cosmeticStore[GET_NOTIFICATION_MODE]);
 
 // notification handle
-const notificationHeight = ref(10);
+const notificationHeight = reactive({ values: {} });
 const closeNotification = ({ uuid }) => cosmeticStore[REMOVE_NOTIFICATION]({ uuid });
-const endEnterEvent = (e) => (notificationHeight.value = e.clientHeight + 10);
+const endEnterEvent = (e) =>
+  (notificationHeight.values = { ...notificationHeight.values, ...{ [e.dataset.index]: e.clientHeight + 10 } });
 </script>
 <style lang="scss" src="@/assets/styles/index.scss" />
