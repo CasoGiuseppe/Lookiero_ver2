@@ -1,7 +1,6 @@
 <template>
   <section :class="[loaderStore.state === true ? 'is-loading is-blocked' : null, 'root-layout']" data-message="ciccio">
     <section class="root-layout__content">
-      {{ notificationHeight }}
       <RouterView />
     </section>
   </section>

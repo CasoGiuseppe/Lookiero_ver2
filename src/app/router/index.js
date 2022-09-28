@@ -1,16 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-// constants
-import { API_BASE_PATH } from "@/app/partials/constants";
-import { GENERIC_ERROR, TIMELINE_SUCCESS, BASE_NOTIFICATION_OBJ as notification } from "@/app/partials/messages";
-import { uuid } from "@/app/partials/helpers";
-
-// usecases
-import { UseGetTimelineMessages, UseHandleUserByState } from "@/domains/twitter/core";
-
-// store
-import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
-import { CHANGE_USERS_LIST } from "@/domains/twitter/infrastructure/store/actions";
+// composables
+import { useTimeline } from "@/app/composables/timeline.composable";
+import { useUsersFollower } from "@/app/composables/follower.composable";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,37 +14,11 @@ const router = createRouter({
         default: () => import("@/app/ui/views/twitter-layout/TwitterLayout.vue"),
       },
       beforeEnter: async (to, from, next) => {
-        // pinia
-        const twitterStore = useTwitterStore();
-
-        // usecases
-        const { getUserByOwnState } = UseHandleUserByState();
-
         // 1. get timeline messages
         // 2. get following users
         try {
-          await UseGetTimelineMessages({
-            request: {
-              urls: [`${API_BASE_PATH}following/true`, `${API_BASE_PATH}owner/true`],
-            },
-            onErrorState: notification({ uuid: uuid() }),
-            onInfoState: notification({ uuid: uuid(), message: TIMELINE_SUCCESS }),
-            $store: twitterStore,
-            $actionName: CHANGE_USERS_LIST,
-          });
-
-          // `${API_BASE_PATH}following/false` }
-          await getUserByOwnState({
-            request: { url: `${API_BASE_PATH}following/false` },
-            onErrorState: notification({ uuid: uuid() }),
-            onInfoState: notification({ uuid: uuid(), message: "ciccio pasticcio" }),
-          });
-
-          await getUserByOwnState({
-            request: { url: `${API_BASE_PATH}following/true` },
-            onErrorState: notification({ uuid: uuid() }),
-            onInfoState: notification({ uuid: uuid(), message: "ciccio pasticcio2" }),
-          });
+          await useTimeline();
+          await useUsersFollower();
           next();
         } catch (e) {
           console.log(e);
