@@ -10,9 +10,7 @@
 export const handleUserByState =
   ({
     HTTP: { get },
-    services: {
-      notifications: { hasLoader, hasNotification },
-    },
+    services: { notifications: { hasLoader, hasNotification } = {}, store: { onStore } = {} },
     modelCollecion: { IUsers } = {},
   }) =>
   () => {
@@ -38,8 +36,8 @@ export const handleUserByState =
       if (requiredClasses.some((node) => node === undefined))
         throw new Error("Usecase > handleUserByState > All models should be a class");
 
-      const { onErrorState, onInfoState, ...rest } = args;
-      console.log(args);
+      const { onErrorState, onInfoState, $type, ...rest } = args;
+
       // 2. launch endpoint get to return all users by gived type
       try {
         // 2.1 launch loader to wait endpoint response
@@ -48,18 +46,36 @@ export const handleUserByState =
         // 2.2 launch API endpoint
         const response = await get(url);
 
-        // console.log(
-        //   response.reduce((acc, node) => {
-        //     return [...acc, new IUsers(node)];
-        //   }, [])
-        // );
+        // 2.3 checkif response is empty
+        // 2.4 exit from function
+        // 2.5 notify to user
+        if (response.length === 0) {
+          hasNotification
+            ? hasNotification(
+                onInfoState
+                  ? { ...onInfoState, ...{ message: "Sorry! No items found", type: "info" } }
+                  : { type: "info", message: "Sorry! No items found" }
+              )
+            : null;
+          return;
+        }
 
-        // 2.7 notify to user successfully
+        // 2.6 notify to user successfully
         hasNotification
           ? hasNotification(
               { ...onInfoState, ...{ type: "info" } } || { uuid: "000", type: "info", message: "notification" }
             )
           : null;
+
+        // 2.7 stored data
+        if (!onStore) return;
+        onStore({
+          ...rest,
+          params: {
+            type: $type,
+            list: response.map((node) => new IUsers(node)),
+          },
+        });
       } catch ({ message }) {
         // 3. handle response erro
         hasNotification

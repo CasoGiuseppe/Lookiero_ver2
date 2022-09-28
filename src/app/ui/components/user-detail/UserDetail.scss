@@ -15,11 +15,15 @@
     align-items: center;
     display: flex;
     line-height: normal;
-    padding: var(--sm-spacing-xsmall) var(--sm-spacing-small);
 
-    background: var(--sm-c-blue-300);
-    border-radius: var(--sm-spacing-xsmall);
-    color: var(--sm-c-white, white);
+
+    >* {
+      padding: var(--sm-spacing-xsmall) var(--sm-spacing-small);
+
+      background: var(--sm-c-blue-300);
+      border-radius: var(--sm-spacing-xsmall);
+      color: var(--sm-c-white, white);
+    }
 
     +#{$userdetail}__time {
       text-align: right;

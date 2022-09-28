@@ -5,6 +5,7 @@
   flex: 0 0 min(90vw, px2rem(600));
   flex-direction: column;
   gap: var(--sm-spacing-medium);
+  overflow: hidden;
 
   background: var(--sm-c-white);
   border: 1px solid var(--sm-c-gray-200);
@@ -30,5 +31,6 @@
 
   &__timeline {
     flex: 2;
+    overflow: auto;
   }
 }

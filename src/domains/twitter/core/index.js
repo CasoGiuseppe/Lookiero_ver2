@@ -33,6 +33,7 @@ export const UseHandleUserByState = handleUserByState({
   HTTP: { get: getService },
   services: {
     notifications,
+    store: { onStore: storeData },
   },
   modelCollecion: { IUsers },
 });

@@ -14,14 +14,11 @@ const router = createRouter({
         default: () => import("@/app/ui/views/twitter-layout/TwitterLayout.vue"),
       },
       beforeEnter: async (to, from, next) => {
-        // 1. get timeline messages
-        // 2. get following users
         try {
           await useTimeline();
           await useUsersFollower();
           next();
         } catch (e) {
-          console.log(e);
           next("/error");
         }
       },

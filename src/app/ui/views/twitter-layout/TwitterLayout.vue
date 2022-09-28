@@ -1,6 +1,17 @@
 <template>
   <section class="twitter-layout">
-    <aside class="twitter-layout__users">users</aside>
+    <aside class="twitter-layout__users">
+      <template v-for="(item, key) in twitterUsers" :key="key">
+        <AnimatedList :rows="item">
+          <template #title>{{ key }}</template>
+          <template #rows="{ row: { author } }">
+            <UserDetail>
+              <template #author>{{ author }}</template>
+            </UserDetail>
+          </template>
+        </AnimatedList>
+      </template>
+    </aside>
     <section class="twitter-layout__timeline">
       <AnimatedList :rows="twitterList">
         <template #title>Timeline</template>
@@ -26,10 +37,12 @@ import UserDetail from "@/app/ui/components/user-detail/UserDetail.vue";
 
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
-import { GET_TIMELINE_LIST } from "@/domains/twitter/infrastructure/store/getters.js";
+import { GET_TIMELINE_LIST, GET_USERS_BY_TYPE, GET_USERS } from "@/domains/twitter/infrastructure/store/getters.js";
 
 // pinia
 const twitterStore = useTwitterStore();
 const twitterList = computed(() => twitterStore[GET_TIMELINE_LIST]);
+const twitterUsers = computed(() => twitterStore[GET_USERS]);
+const twitterUsersType = computed(() => twitterStore[GET_USERS_BY_TYPE]);
 </script>
 <style lang="scss" src="./TwitterLayout.scss" />

@@ -34,7 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: max(100vh, 100%);
+  max-height: max(100vh, 100%);
   width: 100%;
 
   >* {
@@ -56,10 +56,10 @@ body {
   }
 
   &__content {
-    align-items: center;
     display: flex;
     flex: 2;
     justify-content: center;
+    overflow: hidden;
   }
 }
 

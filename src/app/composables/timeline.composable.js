@@ -11,14 +11,12 @@ import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
 import { CHANGE_USERS_LIST } from "@/domains/twitter/infrastructure/store/actions";
 
 const baseUrls = [`${API_BASE_PATH}following/true`, `${API_BASE_PATH}owner/true`];
-export const useTimeline = async (urls = baseUrls) => {
-  const twitterStore = useTwitterStore();
-
+export const useTimeline = async (urls = baseUrls, message = TIMELINE_SUCCESS) => {
   await UseGetTimelineMessages({
     request: { urls },
     onErrorState: { uuid: uuid() },
-    onInfoState: { uuid: uuid(), message: TIMELINE_SUCCESS },
-    $store: twitterStore,
+    onInfoState: { uuid: uuid(), message },
+    $store: useTwitterStore(),
     $actionName: CHANGE_USERS_LIST,
   });
 };
