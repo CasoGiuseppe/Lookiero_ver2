@@ -101,21 +101,21 @@ export const handleUserByState =
       const requiredOnFail = [url !== undefined].some((key) => key === false);
       if (requiredOnFail) throw new Error("Usecase > handleUserByState > check that all required params exist");
 
-      const { onErrorState, onInfoState, ...rest } = args;
+      const { onErrorState, onInfoState, callback, ...rest } = args;
 
       // 2. launch endpoint get to return all users by gived type
       try {
         // 2.1 launch loader to wait endpoint response
         hasLoader ? hasLoader({ state: true }) : null;
 
-        // 2.2 stored data
-        if (!onStore) return;
-        onStore({
-          ...rest,
-          params: { user: new IUsers(await patch(url, params)) },
-        });
+        // 2.2 launch patch to update user state in API
+        await patch(url, params);
 
-        // 2.3 notify to user successfully
+        // 2.3 call callback method when patch has response
+        if (!callback) return;
+        callback();
+
+        // 2.4 notify to user successfully
         hasNotification
           ? hasNotification(
               { ...onInfoState, ...{ type: "info" } } || { uuid: "000", type: "info", message: "notification" }

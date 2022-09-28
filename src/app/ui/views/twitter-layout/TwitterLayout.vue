@@ -51,7 +51,7 @@ import UserDetail from "@/app/ui/components/user-detail/UserDetail.vue";
 import BaseButton from "@/app/ui/components/base/base-button/BaseButton.vue";
 
 // composables
-import { useChangeUserFollower } from "@/app/composables/users.composable";
+import { useChangeUserFollower, useUsersFollower } from "@/app/composables/users.composable";
 import { useTimeline } from "@/app/composables/timeline.composable";
 
 // store
@@ -68,7 +68,7 @@ const twitterUsers = computed(() => {
   };
 });
 
-const updateUser = async ({ state, id }) => useChangeUserFollower({ state, id });
+const updateUser = async ({ state, id }) => useChangeUserFollower({ state, id, callback: useUsersFollower });
 const setCurrentTimeline = async (id) => await useTimeline([`${API_BASE_PATH}id/${id}`], TIMELINE_UPDATE_SUCCESS);
 </script>
 <style lang="scss" src="./TwitterLayout.scss" />
