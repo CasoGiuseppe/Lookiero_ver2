@@ -26,6 +26,7 @@
               </template>
             </UserDetail>
           </template>
+          <template #error v-if="item.length === 0">No users founded</template>
         </AnimatedList>
       </template>
     </aside>
@@ -75,7 +76,8 @@ const twitterUsers = computed(() => {
 });
 const twitterSelectedUser = computed(() => twitterStore[GET_SELECTED_USER]);
 
-const updateUser = async ({ state, id }) => useChangeUserFollower({ state, id, callback: useUsersFollower });
+const updateUser = async ({ state, id }) =>
+  useChangeUserFollower({ state, id, callbacks: [useUsersFollower, useTimeline] });
 const setCurrentTimeline = async ({ id, author }) =>
   twitterStore[CHANGE_SELECTED_USER]({ user: twitterSelectedUser.value.id !== id ? { id, author } : {} });
 

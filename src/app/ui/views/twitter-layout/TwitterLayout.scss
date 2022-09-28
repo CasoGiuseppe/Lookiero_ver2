@@ -37,7 +37,11 @@
     }
 
     >* {
-      flex: 1
+      flex: 1;
+
+      @include breakpoint('tablet-pt') {
+        flex: 0 0 auto
+      }
     }
   }
 

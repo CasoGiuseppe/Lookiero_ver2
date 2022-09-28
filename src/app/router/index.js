@@ -15,7 +15,7 @@ const router = createRouter({
       },
       beforeEnter: async (to, from, next) => {
         try {
-          await useTimeline({});
+          await useTimeline();
           await useUsersFollower();
           next();
         } catch (e) {

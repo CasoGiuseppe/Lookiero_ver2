@@ -22,13 +22,13 @@ export const useUsersFollower = async () => {
   });
 };
 
-export const useChangeUserFollower = async ({ state, id, callback }) => {
+export const useChangeUserFollower = async ({ state, id, callbacks }) => {
   await changeUserState({
     request: { url: `${API_BASE_PATH}id/${id}`, ...{ value: !state } },
     onErrorState: { uuid: uuid() },
     onInfoState: { uuid: uuid(), message: USER_UPDATE_SUCCESS },
     $store: useTwitterStore(),
     $actionName: UPDATE_USER_STATE,
-    callback,
+    callbacks,
   });
 };

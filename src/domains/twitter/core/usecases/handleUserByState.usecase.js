@@ -101,7 +101,7 @@ export const handleUserByState =
       const requiredOnFail = [url !== undefined].some((key) => key === false);
       if (requiredOnFail) throw new Error("Usecase > handleUserByState > check that all required params exist");
 
-      const { onErrorState, onInfoState, callback } = args;
+      const { onErrorState, onInfoState, callbacks } = args;
 
       // 2. launch endpoint get to return all users by gived type
       try {
@@ -112,8 +112,9 @@ export const handleUserByState =
         await patch(url, params);
 
         // 2.3 call callback method when patch has response
-        if (!callback) return;
-        callback();
+        if (!callbacks) return;
+        console.log(callbacks);
+        Promise.all(callbacks.map(async (callback) => await callback()));
 
         // 2.4 notify to user successfully
         hasNotification

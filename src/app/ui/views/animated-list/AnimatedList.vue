@@ -15,6 +15,9 @@
         <slot :row="row" name="rows" />
       </li>
     </transition-group>
+    <li v-if="$slots['error']" class="animated-list__error">
+      <slot name="error" />
+    </li>
   </section>
 </template>
 <script setup>
@@ -31,8 +34,6 @@ defineProps({
   },
 });
 
-const endEnterEvent = async (e) => {
-  e.style.removeProperty("transition-delay");
-};
+const endEnterEvent = async (e) => e.style.removeProperty("transition-delay");
 </script>
 <style lang="scss" src="./AnimatedList.scss" />

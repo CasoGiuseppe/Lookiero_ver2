@@ -6,7 +6,7 @@
     $from: translateX(50%),
     $to: translateX(-50%),
     $duration: .4s,
-    $duration-out: 0s,
+    $duration-out: .4s,
   );
 
   overflow: hidden;
@@ -31,5 +31,12 @@
     +#{$animatedlist}__row {
       margin-top: var(--sm-spacing-small)
     }
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
+
+    color: var(--sm-c-red-200);
   }
 }
