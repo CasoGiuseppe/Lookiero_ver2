@@ -21,7 +21,9 @@ export const useTwitterStore = defineStore({
     },
 
     [UPDATE_USER_STATE]({ user = {} }) {
-      this.users = { ...this.users, user };
+      const { id } = user;
+      const temp = this.users.filter((node) => node.id !== id);
+      this.users = [...temp, user];
     },
   },
 

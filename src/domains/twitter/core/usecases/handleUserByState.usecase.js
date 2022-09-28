@@ -94,13 +94,44 @@ export const handleUserByState =
      * @param {string} url - url sting with endpoint path
      * @param {array} params - optionals parameters that are used in endpoint get
      */
-    const changeUserState = async ({ request: { url = undefined, ...params } = {} }) => {
+    const changeUserState = async ({ request: { url = undefined, ...params } = {}, ...args }) => {
       // 0. handle error
       // 0.1 check if all required params exist
       const requiredOnFail = [url !== undefined].some((key) => key === false);
       if (requiredOnFail) throw new Error("Usecase > handleUserByState > check that all required params exist");
 
-      console.log(await patch(url, params));
+      const { onErrorState, onInfoState, ...rest } = args;
+
+      // 2. launch endpoint get to return all users by gived type
+      try {
+        // 2.1 launch loader to wait endpoint response
+        hasLoader ? hasLoader({ state: true }) : null;
+
+        // 2.2 stored data
+        if (!onStore) return;
+        onStore({
+          ...rest,
+          params: { user: new IUsers(await patch(url, params)) },
+        });
+
+        // 2.3 notify to user successfully
+        hasNotification
+          ? hasNotification(
+              { ...onInfoState, ...{ type: "info" } } || { uuid: "000", type: "info", message: "notification" }
+            )
+          : null;
+      } catch ({ message }) {
+        // 3. handle response erro
+        hasNotification
+          ? hasNotification(
+              { ...onErrorState, ...{ type: "error", message } } || { uuid: "000", type: "error", message }
+            )
+          : null;
+        throw new Error(message);
+      } finally {
+        // 4. delete loader state
+        hasLoader ? hasLoader({ state: false }) : null;
+      }
     };
 
     return { getUserByOwnState, changeUserState };

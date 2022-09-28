@@ -3,12 +3,12 @@ import { UseHandleUserByState } from "@/domains/twitter/core";
 
 // constants
 import { API_BASE_PATH } from "@/app/partials/constants";
-import { USER_FOLLOW_SUCCESS } from "@/app/partials/messages";
+import { USER_FOLLOW_SUCCESS, USER_UPDATE_SUCCESS } from "@/app/partials/messages";
 import { uuid } from "@/app/partials/helpers";
 
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
-import { CHANGE_USER_STATE } from "@/domains/twitter/infrastructure/store/actions";
+import { CHANGE_USER_STATE, UPDATE_USER_STATE } from "@/domains/twitter/infrastructure/store/actions";
 
 const { getUserByOwnState, changeUserState } = UseHandleUserByState();
 
@@ -22,8 +22,13 @@ export const useUsersFollower = async () => {
   });
 };
 
-export const useChangeUserFollower = async (id) => {
+export const useChangeUserFollower = async ({ state, id }) => {
+  console.log(state);
   await changeUserState({
-    request: { url: `${API_BASE_PATH}id/${id}`, ...{ value: true } },
+    request: { url: `${API_BASE_PATH}id/${id}`, ...{ value: !state } },
+    onErrorState: { uuid: uuid() },
+    onInfoState: { uuid: uuid(), message: USER_UPDATE_SUCCESS },
+    $store: useTwitterStore(),
+    $actionName: UPDATE_USER_STATE,
   });
 };

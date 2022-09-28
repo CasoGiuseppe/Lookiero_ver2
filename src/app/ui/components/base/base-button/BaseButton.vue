@@ -8,7 +8,7 @@
     ]"
     :data-id="id"
     :disabled="isDisabled"
-    @click="handleClick(id)"
+    @click="handleClick(id, state)"
   >
     <span class="base-button__label">
       <transition mode="out-in" name="appear-extra-info">
@@ -24,6 +24,10 @@ defineProps({
   id: {
     type: [String, Number],
     default: "test",
+  },
+  state: {
+    type: [Boolean, Number, String],
+    default: null,
   },
   mode: {
     type: String,
@@ -45,6 +49,6 @@ defineProps({
 });
 
 const clickEmit = defineEmits(["handleClick"]);
-const handleClick = (id) => clickEmit("handleClick", id);
+const handleClick = (id, state) => clickEmit("handleClick", { id, state });
 </script>
 <style lang="scss" src="./BaseButton.scss" />

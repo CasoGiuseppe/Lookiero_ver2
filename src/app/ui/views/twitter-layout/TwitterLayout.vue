@@ -8,7 +8,12 @@
             <UserDetail>
               <template #author>{{ author }}</template>
               <template #action>
-                <BaseButton :id="id" :mode="following ? 'secondary' : null" @handleClick="updateUser">
+                <BaseButton
+                  :id="id"
+                  :state="following"
+                  :mode="following ? 'secondary' : null"
+                  @handleClick="updateUser"
+                >
                   {{ following ? "unfollow" : "follow" }}
                 </BaseButton>
               </template>
@@ -58,6 +63,6 @@ const twitterUsers = computed(() => {
   };
 });
 
-const updateUser = (id) => useChangeUserFollower(id);
+const updateUser = ({ state, id }) => useChangeUserFollower({ state, id });
 </script>
 <style lang="scss" src="./TwitterLayout.scss" />
