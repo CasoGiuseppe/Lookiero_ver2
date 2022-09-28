@@ -9,7 +9,7 @@
  */
 export const handleUserByState =
   ({
-    HTTP: { get },
+    HTTP: { get, patch },
     services: { notifications: { hasLoader, hasNotification } = {}, store: { onStore } = {} },
     modelCollecion: { IUsers } = {},
   }) =>
@@ -25,10 +25,10 @@ export const handleUserByState =
      * @param {array} params - optionals parameters that are used in endpoint get
      * @param {array} args - optionals parameters that are used in usecase
      */
-    const getUserByOwnState = async ({ request: { url = undefined, ...params } = {}, ...args }) => {
+    const getUserByOwnState = async ({ request: { url = undefined } = {}, ...args }) => {
       // 0. handle error
       // 0.1 check if all required params exist
-      const requiredOnFail = [url !== undefined, Object.keys(params).lenght !== 0].some((key) => key === false);
+      const requiredOnFail = [url !== undefined].some((key) => key === false);
       if (requiredOnFail) throw new Error("Usecase > handleUserByState > check that all required params exist");
 
       // 0.2 check if models are classes
@@ -36,7 +36,7 @@ export const handleUserByState =
       if (requiredClasses.some((node) => node === undefined))
         throw new Error("Usecase > handleUserByState > All models should be a class");
 
-      const { onErrorState, onInfoState, $type, ...rest } = args;
+      const { onErrorState, onInfoState, ...rest } = args;
 
       // 2. launch endpoint get to return all users by gived type
       try {
@@ -72,8 +72,7 @@ export const handleUserByState =
         onStore({
           ...rest,
           params: {
-            type: $type,
-            list: response.map((node) => new IUsers(node)),
+            list: response.map((node) => new IUsers(node)).filter((node) => node.following !== undefined),
           },
         });
       } catch ({ message }) {
@@ -90,5 +89,19 @@ export const handleUserByState =
       }
     };
 
-    return { getUserByOwnState };
+    /**
+     * change user state
+     * @param {string} url - url sting with endpoint path
+     * @param {array} params - optionals parameters that are used in endpoint get
+     */
+    const changeUserState = async ({ request: { url = undefined, ...params } = {} }) => {
+      // 0. handle error
+      // 0.1 check if all required params exist
+      const requiredOnFail = [url !== undefined].some((key) => key === false);
+      if (requiredOnFail) throw new Error("Usecase > handleUserByState > check that all required params exist");
+
+      console.log(await patch(url, params));
+    };
+
+    return { getUserByOwnState, changeUserState };
   };

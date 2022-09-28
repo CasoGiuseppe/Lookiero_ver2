@@ -30,7 +30,7 @@ export const UseGetTimelineMessages = getTimelineMessages({
 });
 
 export const UseHandleUserByState = handleUserByState({
-  HTTP: { get: getService },
+  HTTP: { get: getService, patch: patchService },
   services: {
     notifications,
     store: { onStore: storeData },

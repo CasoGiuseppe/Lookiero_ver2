@@ -6,6 +6,7 @@
     <span v-if="$slots['time']" class="user-detail__time">
       <slot name="time" />
     </span>
+    <slot name="action" />
     <p v-if="$slots['message']" class="user-detail__message">
       <slot name="message" />
     </p>

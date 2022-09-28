@@ -1,0 +1,88 @@
+.base-button {
+  $basebutton: &;
+
+  @include text--small;
+  @include create-animation($name: 'appear-extra-info',
+    $from: translateY(50%),
+    $to: translateY(-50%),
+  );
+
+  padding: var(--sm-spacing-small, 0) var(--sm-spacing-medium, 0);
+  background: var(--sm-c-white);
+  border-radius: var(--sm-spacing-xsmall, 0);
+  border: 1px solid var(--sm-c-blue-500, black);
+  color: var(--sm-c-blue-500, black);
+
+  transition: background .6s var(--sm-ease-out, linear);
+
+  &:not([disabled]) {
+    cursor: pointer;
+
+    &:hover {
+      @include breakpoint('tablet-ld') {
+        background: var(--sm-c-yellow-200, #000);
+
+        &#{$basebutton}--is-warning {
+          background: var(--sm-c-red-300, #000);
+        }
+      }
+    }
+  }
+
+  &:disabled {
+    background: var(--sm-c-gray-200, #000);
+  }
+
+  &--is- {
+    &close {
+      height: var(--sm-spacing-big, 20);
+      padding: 0;
+      position: relative;
+      width: var(--sm-spacing-big, 20);
+
+      background: var(--sm-c-blue-300, #000);
+      border-radius: 50%;
+
+      &::before,
+      &::after {
+        height: 1px;
+        left: 50%;
+        position: absolute;
+        width: 50%;
+        top: 50%;
+
+        background: var(--sm-c-white);
+        content: '';
+      }
+
+      &::before {
+        transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+      }
+
+      &::after {
+        transform: translateX(-50%) translateY(-50%) rotate(45deg);
+      }
+    }
+
+    &secondary {
+      background: var(--sm-c-blue-300, #000);
+      border: none;
+      color: var(--sm-c-white, white);
+    }
+
+    &warning {
+      background: var(--sm-c-red-200, #000);
+    }
+  }
+
+  &__label {
+    position: relative;
+
+    &--is-animated {
+      display: inline-block;
+      position: relative;
+
+      font-weight: var(--sm-font-weight-bold, 400);
+    }
+  }
+}

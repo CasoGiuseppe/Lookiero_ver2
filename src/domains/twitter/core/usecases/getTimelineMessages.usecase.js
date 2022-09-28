@@ -25,13 +25,13 @@ export const getTimelineMessages =
    * @param {array} params - optionals parameters that are used in endpoint get
    * @param {array} args - optionals parameters that are used in usecase
    */
-  async ({ request: { urls = [], ...params } = {}, ...args } = {}) => {
+  async ({ request: { urls = [] } = {}, ...args } = {}) => {
     // 0. handle error
     // 0.1 check if HTTP get is a function
     if (typeof get !== "function") throw new Error("Usecase > getTimelineMessages > HTTP get is not a funtion");
 
     // 0.2 check if all required params exist
-    const requiredOnFail = [urls.length !== 0, Object.keys(params).lenght !== 0].some((key) => key === false);
+    const requiredOnFail = [urls.length !== 0].some((key) => key === false);
     if (requiredOnFail) throw new Error("Usecase > getTimelineMessages > check that all required params exist");
 
     // 0.3 check if models are classes

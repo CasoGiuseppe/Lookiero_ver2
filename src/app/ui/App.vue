@@ -30,6 +30,9 @@ import { computed, reactive } from "vue";
 // components
 import Notification from "@/app/ui/components/base/base-notification/BaseNotification.vue";
 
+// constants
+import { API_DELAY_MAX } from "@/app/partials/constants";
+
 // store
 import { useCosmeticStore } from "@/app/stores/cosmetic";
 import { GET_LOADER_STATE, GET_NOTIFICATION_MODE } from "@/app/stores/cosmetic/getters";
@@ -38,6 +41,7 @@ import { storeToRefs } from "pinia";
 
 // helper
 import { wait } from "@/app/partials/helpers";
+
 // cosmetic pina
 const cosmeticStore = useCosmeticStore();
 const cosmeticRefs = storeToRefs(cosmeticStore);
@@ -54,7 +58,7 @@ const startEnterEvent = (e) =>
   });
 
 const endEnterEvent = async (e) => {
-  await wait(3000);
+  await wait(API_DELAY_MAX);
   cosmeticStore[REMOVE_NOTIFICATION]({ uuid: e.dataset.uuid });
 };
 </script>

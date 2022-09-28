@@ -32,7 +32,8 @@ const mockServer = createServer({
     // update user following state
     this.patch(`${API_ENDPOINT}/id/:id`, (schema, request) => {
       const user = schema.db.users.where({ id: request.params.id })[0];
-      user.data.following = request.requestBody;
+      user.following = request.requestBody.value;
+      return user;
     });
 
     // add new message
