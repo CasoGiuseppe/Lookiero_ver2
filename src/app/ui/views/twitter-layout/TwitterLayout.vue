@@ -7,7 +7,10 @@
           <template #rows="{ row: { id, author, following } }">
             <UserDetail>
               <template #author>
-                <button :data-selected="twitterSelectedUser.id === id ? true : null" @click="setCurrentTimeline(id)">
+                <button
+                  :data-selected="twitterSelectedUser.id === id ? true : null"
+                  @click="setCurrentTimeline({ id, author })"
+                >
                   {{ author }}
                 </button>
               </template>
@@ -28,7 +31,7 @@
     </aside>
     <section class="twitter-layout__timeline">
       <AnimatedList :rows="twitterList" complex>
-        <template #title>Timeline</template>
+        <template #title>{{ twitterSelectedUser.author }} Timeline</template>
         <template #rows="{ row: { author, diffTime: time, message } }">
           <UserDetail>
             <template #author
@@ -73,12 +76,13 @@ const twitterUsers = computed(() => {
 const twitterSelectedUser = computed(() => twitterStore[GET_SELECTED_USER]);
 
 const updateUser = async ({ state, id }) => useChangeUserFollower({ state, id, callback: useUsersFollower });
-const setCurrentTimeline = async (id) =>
-  twitterStore[CHANGE_SELECTED_USER]({ user: twitterSelectedUser.value.id !== id ? { id } : {} });
+const setCurrentTimeline = async ({ id, author }) =>
+  twitterStore[CHANGE_SELECTED_USER]({ user: twitterSelectedUser.value.id !== id ? { id, author } : {} });
 
 watch(twitterSelectedUser, async ({ id }) => {
-  await useTimeline(id ? { urls: [`${API_BASE_PATH}id/${id}`], message: TIMELINE_UPDATE_SUCCESS } : {});
+  await useTimeline(
+    id ? { urls: [`${API_BASE_PATH}id/${id}`], message: TIMELINE_UPDATE_SUCCESS(twitterSelectedUser.value.author) } : {}
+  );
 });
-// await useTimeline([`${API_BASE_PATH}id/${id}`], TIMELINE_UPDATE_SUCCESS);
 </script>
 <style lang="scss" src="./TwitterLayout.scss" />

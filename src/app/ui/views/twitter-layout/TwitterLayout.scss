@@ -22,16 +22,22 @@
   }
 
   &__users {
+    display: flex;
     flex: 0 0 40%;
+    flex-direction: row;
+    gap: var(--sm-spacing-medium);
 
     @include breakpoint('tablet-ld') {
       flex: 0 0 30%;
     }
 
+    @include breakpoint('tablet-pt') {
+      flex: 1;
+      flex-direction: column;
+    }
+
     >* {
-      +* {
-        margin-top: var(--sm-spacing-medium);
-      }
+      flex: 1
     }
   }
 
