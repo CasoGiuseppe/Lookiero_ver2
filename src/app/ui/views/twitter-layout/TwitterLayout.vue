@@ -7,12 +7,13 @@
           <template #rows="{ row: { id, author, following } }">
             <UserDetail>
               <template #author>
-                <button
+                <component
+                  :is="following ? 'button' : 'span'"
                   :data-selected="twitterSelectedUser.id === id ? true : null"
-                  @click="setCurrentTimeline({ id, author })"
+                  @click="following ? setCurrentTimeline({ id, author }) : null"
                 >
                   {{ author }}
-                </button>
+                </component>
               </template>
               <template #action>
                 <BaseButton
