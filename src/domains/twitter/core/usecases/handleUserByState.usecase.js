@@ -93,6 +93,7 @@ export const handleUserByState =
      * change user state
      * @param {string} url - url sting with endpoint path
      * @param {array} params - optionals parameters that are used in endpoint get
+     * @param {array} args - optionals parameters that are used in usecase
      */
     const changeUserState = async ({ request: { url = undefined, ...params } = {}, ...args }) => {
       // 0. handle error

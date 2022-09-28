@@ -18,11 +18,27 @@
 
 
     >* {
-      padding: var(--sm-spacing-xsmall) var(--sm-spacing-small);
+      &:is(strong) {
+        padding: var(--sm-spacing-xsmall) var(--sm-spacing-small);
 
-      background: var(--sm-c-blue-300);
-      border-radius: var(--sm-spacing-xsmall);
-      color: var(--sm-c-white, white);
+        background: var(--sm-c-blue-300);
+        border-radius: var(--sm-spacing-xsmall);
+        color: var(--sm-c-white, white);
+      }
+
+      &:is(button) {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        &:after {
+          flex: 1px;
+          width: 100%;
+
+          background: var(--sm-c-gray-200, black);
+          content: ''
+        }
+      }
     }
 
     +#{$userdetail}__time {

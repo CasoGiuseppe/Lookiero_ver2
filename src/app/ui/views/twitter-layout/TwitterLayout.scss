@@ -27,6 +27,12 @@
     @include breakpoint('tablet-ld') {
       flex: 0 0 30%;
     }
+
+    >* {
+      +* {
+        margin-top: var(--sm-spacing-medium);
+      }
+    }
   }
 
   &__timeline {

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // composables
 import { useTimeline } from "@/app/composables/timeline.composable";
-import { useUsersFollower } from "@/app/composables/follower.composable";
+import { useUsersFollower } from "@/app/composables/users.composable";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -3,7 +3,7 @@
     <h2 v-if="$slots['title']" class="animated-list__title">
       <slot name="title" />
     </h2>
-    <transition-group appear tag="ul" name="appear-list-item" class="animated-list__table">
+    <transition-group appear tag="ul" name="appear-list-item" class="animated-list__table" @after-enter="endEnterEvent">
       <li
         v-for="(row, index) in rows"
         :key="row"
@@ -25,5 +25,9 @@ defineProps({
     required: true,
   },
 });
+
+const endEnterEvent = async (e) => {
+  e.style.removeProperty("transition-delay");
+};
 </script>
 <style lang="scss" src="./AnimatedList.scss" />

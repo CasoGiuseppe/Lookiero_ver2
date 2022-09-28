@@ -6,7 +6,9 @@
           <template #title>{{ key }}</template>
           <template #rows="{ row: { id, author, following } }">
             <UserDetail>
-              <template #author>{{ author }}</template>
+              <template #author
+                ><button @click="setCurrentTimeline(id)">{{ author }}</button></template
+              >
               <template #action>
                 <BaseButton
                   :id="id"
@@ -40,6 +42,8 @@
 </template>
 <script setup>
 import { computed } from "vue";
+import { API_BASE_PATH } from "@/app/partials/constants";
+import { TIMELINE_UPDATE_SUCCESS } from "@/app/partials/messages";
 
 // ui
 import AnimatedList from "@/app/ui/views/animated-list/AnimatedList.vue";
@@ -47,7 +51,8 @@ import UserDetail from "@/app/ui/components/user-detail/UserDetail.vue";
 import BaseButton from "@/app/ui/components/base/base-button/BaseButton.vue";
 
 // composables
-import { useChangeUserFollower } from "@/app/composables/follower.composable";
+import { useChangeUserFollower } from "@/app/composables/users.composable";
+import { useTimeline } from "@/app/composables/timeline.composable";
 
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
@@ -63,6 +68,7 @@ const twitterUsers = computed(() => {
   };
 });
 
-const updateUser = ({ state, id }) => useChangeUserFollower({ state, id });
+const updateUser = async ({ state, id }) => useChangeUserFollower({ state, id });
+const setCurrentTimeline = async (id) => await useTimeline([`${API_BASE_PATH}id/${id}`], TIMELINE_UPDATE_SUCCESS);
 </script>
 <style lang="scss" src="./TwitterLayout.scss" />

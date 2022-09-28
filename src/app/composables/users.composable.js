@@ -23,7 +23,6 @@ export const useUsersFollower = async () => {
 };
 
 export const useChangeUserFollower = async ({ state, id }) => {
-  console.log(state);
   await changeUserState({
     request: { url: `${API_BASE_PATH}id/${id}`, ...{ value: !state } },
     onErrorState: { uuid: uuid() },
