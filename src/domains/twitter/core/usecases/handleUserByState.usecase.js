@@ -25,7 +25,7 @@ export const handleUserByState =
      * @param {array} params - optionals parameters that are used in endpoint get
      * @param {array} args - optionals parameters that are used in usecase
      */
-    const getUserByOwnState = async ({ request: { url = undefined } = {}, ...args }) => {
+    const getUserByOwnState = async ({ request: { url = undefined } = {}, ...args } = {}) => {
       // 0. handle error
       // 0.1 check if all required params exist
       const requiredOnFail = [url !== undefined].some((key) => key === false);

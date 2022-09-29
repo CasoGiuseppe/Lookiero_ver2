@@ -12,6 +12,7 @@ export const mockAPIResponse = [
   { owner: true, name: "me", messages: [{ date: new Date(), text: "text" }] },
   { owner: false, name: "you", messages: [{ date: "Jan 01 2022 12:00:00", text: "text" }] },
 ];
+
 const mockPageResource = (url) => {
   const responseCases = {
     "http://mock_url": mockAPIResponse,
