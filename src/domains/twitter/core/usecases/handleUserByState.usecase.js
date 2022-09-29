@@ -9,14 +9,14 @@
  */
 export const handleUserByState =
   ({
-    HTTP: { get, patch },
-    services: { notifications: { hasLoader, hasNotification } = {}, store: { onStore } = {} },
+    HTTP: { get, patch } = {},
+    services: { notifications: { hasLoader, hasNotification } = {}, store: { onStore } = {} } = {},
     modelCollecion: { IUsers } = {},
   }) =>
   () => {
     // 0. handle error
     // 0.1 check if HTTP patch or get are a function
-    const requiredHTTPMethods = [typeof get === "function"].some((key) => key === false);
+    const requiredHTTPMethods = [typeof get === "function", typeof patch === "function"].some((key) => key === false);
     if (requiredHTTPMethods) throw new Error("Usecase > handleUserTypes > HTTP method is not a funtion");
 
     /**

@@ -55,5 +55,5 @@ export const mockBaseFn = getTimelineMessages({
 });
 
 export const mockThrwoErrorNoFn = getTimelineMessages({
-  HTTP: { get: null },
+  HTTP: { get: null, patch: null },
 });
