@@ -29,7 +29,7 @@
 import { RouterView } from "vue-router";
 import { computed, reactive } from "vue";
 
-// components
+// ui
 import Notification from "@/app/ui/components/base/base-notification/BaseNotification.vue";
 
 // constants
