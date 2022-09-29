@@ -25,10 +25,9 @@ describe("Service: notification", () => {
 
   test("should store correct notification state", async () => {
     const { hasNotification } = notification;
-    const notifyState = { state: true, type: "info", message: "Sorry! No items found" };
-    const getterStore = cosmeticStore[GET_NOTIFICATION_MODE];
-    hasNotification(notifyState);
-    expect(getterStore).toMatchObject(notifyState);
-    expect(Object.keys(getterStore).length).toBeGreaterThan(0);
+    const notifyState = { uuid: "000", type: "info", message: "Sorry! No items found" };
+    await hasNotification(notifyState);
+    expect(cosmeticStore[GET_NOTIFICATION_MODE]).toEqual([notifyState]);
+    expect(cosmeticStore[GET_NOTIFICATION_MODE].length).toBeGreaterThan(0);
   });
 });
