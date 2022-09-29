@@ -26,11 +26,24 @@
 
     >* {
       &:is(strong) {
-        padding: var(--sm-spacing-xsmall, 0) var(--sm-spacing-small, 0);
+        align-items: center;
+        display: flex;
 
-        background: var(--sm-c-blue-300, black);
-        border-radius: var(--sm-spacing-xsmall, 0);
-        color: var(--sm-c-white, white);
+        &::before {
+          height: var(--sm-spacing-small, 4);
+          margin-right: var(--sm-spacing-xsmall, 4);
+          width: var(--sm-spacing-small, 4);
+
+          background: var(--sm-c-yellow-200, black);
+          border-radius: 50%;
+          content: '';
+
+          transform: translateY(-1px);
+
+          #{$userdetail}--is-new & {
+            background: var(--sm-c-white, white);
+          }
+        }
       }
 
       &:is(button) {
