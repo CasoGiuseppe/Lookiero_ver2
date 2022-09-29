@@ -2,6 +2,9 @@
   <article :class="[isNew ? 'user-detail--is-new' : null, 'user-detail']">
     <h3 v-if="$slots['author']" class="user-detail__author">
       <slot name="author" />
+      <span v-if="$slots['owner']" class="user-detail--is-owner">
+        <slot name="owner" />
+      </span>
     </h3>
     <span v-if="$slots['time']" class="user-detail__time">
       <slot name="time" />

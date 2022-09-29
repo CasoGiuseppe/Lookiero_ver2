@@ -1,5 +1,5 @@
 export default class IEmbedd {
   constructor(payload = {}) {
-    return payload.data;
+    return payload.data || null;
   }
 }

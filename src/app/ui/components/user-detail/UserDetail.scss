@@ -103,4 +103,15 @@
       color: white;
     }
   }
+
+  &--is-owner {
+    @include text--mini;
+
+    margin-left: var(--sm-spacing-xsmall, 4);
+    padding: 0 var(--sm-spacing-xsmall, 4);
+
+    background: var(--sm-c-red-200, black);
+    border-radius: var(--sm-spacing-xsmall, 4);
+    color: var(--sm-c-white, white);
+  }
 }

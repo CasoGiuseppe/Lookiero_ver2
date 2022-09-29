@@ -75,6 +75,7 @@ export const getTimelineMessages =
 
       // 2.8 stored sorted and manipulated data
       if (!onStore) return;
+
       onStore({
         ...rest,
         params: sortDates({

@@ -34,11 +34,12 @@
     <section class="twitter-layout__timeline">
       <AnimatedList :rows="twitterList" complex>
         <template #title>{{ twitterSelectedUser.author }} Timeline</template>
-        <template #rows="{ row: { author, diffTime: time, message } }">
+        <template #rows="{ row: { author, diffTime: time, message, owner } }">
           <UserDetail :isNew="message.replace(/ /g, '') === twitterNewMessage">
-            <template #author
-              ><strong>{{ author }}</strong></template
-            >
+            <template #author>
+              <strong>{{ author }}</strong>
+            </template>
+            <template #owner v-if="owner">owner</template>
             <template #time>{{ time }}</template>
             <template #message>{{ message }}</template>
           </UserDetail>
