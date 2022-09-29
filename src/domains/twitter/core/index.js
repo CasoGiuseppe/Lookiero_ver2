@@ -1,5 +1,9 @@
 // services
-import { getService, patchService } from "@/domains/twitter/infrastructure/repositories/twitter.repository.js";
+import {
+  getService,
+  patchService,
+  postService,
+} from "@/domains/twitter/infrastructure/repositories/twitter.repository.js";
 import Notification from "@/app/services/notification.services";
 import Store from "@/app/services/store.services";
 import Date from "@/domains/twitter/infrastructure/services/date.manipulator.services";
@@ -36,4 +40,11 @@ export const UseHandleUserByState = handleUserByState({
     store: { onStore: storeData },
   },
   modelCollecion: { IUsers },
+});
+
+export const UseAddMessage = addUserMessage({
+  HTTP: { post: postService },
+  services: {
+    notifications,
+  },
 });
