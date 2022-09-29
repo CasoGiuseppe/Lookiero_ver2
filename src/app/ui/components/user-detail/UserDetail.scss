@@ -10,7 +10,7 @@
   transition: background 2s var(--sm-ease-out, linear);
 
   &--is-new {
-    background: var(--sm-c-blue-100, black);
+    background: var(--sm-c-yellow-200, black);
   }
 
   &__author,
@@ -74,11 +74,20 @@
 
   &__time {
     @include text--mini;
-    color: var(--sm-c-gray-300, black)
+    color: var(--sm-c-gray-300, black);
+
+    #{$userdetail}--is-new & {
+      color: white;
+    }
+
   }
 
   &__message {
     flex: 0 0 100%;
     color: var(--sm-c-gray-400, black);
+
+    #{$userdetail}--is-new & {
+      color: white;
+    }
   }
 }

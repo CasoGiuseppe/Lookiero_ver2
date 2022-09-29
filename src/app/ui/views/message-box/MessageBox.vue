@@ -23,10 +23,13 @@ import { useTimeline } from "@/app/composables/timeline.composable";
 
 const form = reactive({ message: "" });
 const minAllowedCharacter = computed(() => form.message.length < MIN_CHARACTER_ALLOWED);
-const saveNewMessage = () =>
+const saveNewMessage = async () => {
   useMessage({
     callbacks: [() => useTimeline({ message: TIMELINE_UPDATE_SUCCESS() })],
     payload: { date: new Date(), text: form.message },
   });
+
+  form.message = "";
+};
 </script>
 <style lang="scss" src="./MessageBox.scss" />
