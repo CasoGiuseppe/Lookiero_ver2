@@ -11,6 +11,13 @@ import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
 import { CHANGE_USERS_LIST } from "@/domains/twitter/infrastructure/store/actions";
 
 const baseUrls = [`${API_BASE_PATH}following/true`, `${API_BASE_PATH}owner/true`];
+
+/**
+ * composable to share timeline usecase
+ * @param {array} urls - array of URLS to use in get HTTP method
+ * @param {string} message - message to show on info notification
+ * @returns { void }
+ */
 export const useTimeline = async ({ urls = baseUrls, message = TIMELINE_SUCCESS } = {}) => {
   await UseGetTimelineMessages({
     request: { urls },

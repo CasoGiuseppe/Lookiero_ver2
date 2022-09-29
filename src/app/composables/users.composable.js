@@ -12,6 +12,11 @@ import { CHANGE_USER_STATE, UPDATE_USER_STATE } from "@/domains/twitter/infrastr
 
 const { getUserByOwnState, changeUserState } = UseHandleUserByState();
 
+/**
+ * composable to share users show usecase
+ * @param {boolean} notification - state of info notification
+ * @returns { void }
+ */
 export const useUsersFollower = async ({ notification = true } = {}) => {
   await getUserByOwnState({
     request: { url: `${API_BASE_PATH}` },
@@ -23,6 +28,13 @@ export const useUsersFollower = async ({ notification = true } = {}) => {
   });
 };
 
+/**
+ * composable to share users modify usecase
+ * @param {boolean} state - value to set follow user state
+ * @param {number} id - unique user ID
+ * @param {array} callbasck - array of methods to call on operation end
+ * @returns { void }
+ */
 export const useChangeUserFollower = async ({ state, id, callbacks }) => {
   await changeUserState({
     request: { url: `${API_BASE_PATH}id/${id}`, ...{ value: !state } },

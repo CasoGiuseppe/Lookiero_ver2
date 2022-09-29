@@ -18,6 +18,13 @@ import { GET_SELECTED_USER } from "@/domains/twitter/infrastructure/store/getter
 import { wait } from "@/app/partials/helpers";
 
 const twitterStore = useTwitterStore();
+
+/**
+ * composable to share add message usecase
+ * @param {string} message - message to show on info notification
+ * @param {object} payload - object payload to pass with post HTTP method
+ * @returns { void }
+ */
 export const useMessage = async ({ message = MESSAGE_SUCCESS, payload = {}, callbacks } = {}) => {
   const user = await get(`${API_BASE_PATH}owner/true`);
   const { id } = user[0];
