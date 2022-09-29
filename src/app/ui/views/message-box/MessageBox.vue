@@ -12,15 +12,21 @@ import { reactive, computed } from "vue";
 
 // constants
 import { MIN_CHARACTER_ALLOWED } from "@/app/partials/constants";
+import { TIMELINE_UPDATE_SUCCESS } from "@/app/partials/messages";
 
 // ui
 import BaseButton from "@/app/ui/components/base/base-button/BaseButton.vue";
 
-// usecase
-import { UseAddMessage } from "@/domains/twitter/core";
+// composables
+import { useMessage } from "@/app/composables/message.composable";
+import { useTimeline } from "@/app/composables/timeline.composable";
 
 const form = reactive({ message: "" });
 const minAllowedCharacter = computed(() => form.message.length < MIN_CHARACTER_ALLOWED);
-const saveNewMessage = () => UseAddMessage();
+const saveNewMessage = () =>
+  useMessage({
+    callbacks: [() => useTimeline({ message: TIMELINE_UPDATE_SUCCESS() })],
+    payload: { date: new Date(), text: form.message },
+  });
 </script>
 <style lang="scss" src="./MessageBox.scss" />

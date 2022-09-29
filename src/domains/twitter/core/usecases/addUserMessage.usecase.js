@@ -20,4 +20,36 @@ export const addUserMessage =
     // 0.2 check if all required params exist
     const requiredOnFail = [url !== undefined].some((key) => key === false);
     if (requiredOnFail) throw new Error("Usecase > getTimelineMessages > check that all required params exist");
+
+    const { onErrorState, onInfoState, callbacks } = args;
+
+    // 2. launch endpoint get to return all users by gived type
+    try {
+      // 2.1 launch loader to wait endpoint response
+      hasLoader ? hasLoader({ state: true }) : null;
+
+      // 2.2 get payload to send to post endpoint
+      const { payload = {} } = params;
+      await post(url, payload);
+
+      // 2.3 notify to user successfully
+      hasNotification
+        ? hasNotification(
+            { ...onInfoState, ...{ type: "info" } } || { uuid: "000", type: "info", message: "notification" }
+          )
+        : null;
+
+      // 2.4 call callback method when patch has response
+      if (!callbacks) return;
+      Promise.all(callbacks.map(async (callback) => await callback()));
+    } catch ({ message }) {
+      // 3. handle response erro
+      hasNotification
+        ? hasNotification({ ...onErrorState, ...{ type: "error", message } } || { uuid: "000", type: "error", message })
+        : null;
+      throw new Error(message);
+    } finally {
+      // 4. delete loader state
+      hasLoader ? hasLoader({ state: false }) : null;
+    }
   };

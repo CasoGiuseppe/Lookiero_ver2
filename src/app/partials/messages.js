@@ -5,6 +5,7 @@ export const TIMELINE_UPDATE_SUCCESS = (author) =>
   `Great! Timeline is update correctly ${author ? `with ${author} messages` : ""} `;
 export const USER_FOLLOW_SUCCESS = "Users are load correctly";
 export const USER_UPDATE_SUCCESS = "User state is update correctly";
+export const MESSAGE_SUCCESS = "Your new message is added correctly";
 export const BASE_NOTIFICATION_OBJ = ({ uuid, type, message }) => {
   return { uuid, type, message };
 };

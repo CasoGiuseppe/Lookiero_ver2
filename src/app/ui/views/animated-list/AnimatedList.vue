@@ -3,15 +3,8 @@
     <h2 v-if="$slots['title']" class="animated-list__title">
       <slot name="title" />
     </h2>
-    <transition-group appear tag="ul" name="appear-list-item" class="animated-list__table" @after-enter="endEnterEvent">
-      <li
-        v-for="(row, index) in rows"
-        :key="complex ? `${row.id}-${index}` : row.id"
-        :style="{
-          transitionDelay: `${index * 0.1}s`,
-        }"
-        class="animated-list__row"
-      >
+    <transition-group appear tag="ul" name="appear-list-item" class="animated-list__table">
+      <li v-for="row in rows" :key="complex ? `${row.name}` : row.id" class="animated-list__row">
         <slot :row="row" name="rows" />
       </li>
     </transition-group>
@@ -33,7 +26,5 @@ defineProps({
     default: false,
   },
 });
-
-const endEnterEvent = async (e) => e.style.removeProperty("transition-delay");
 </script>
 <style lang="scss" src="./AnimatedList.scss" />
