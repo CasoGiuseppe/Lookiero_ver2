@@ -12,6 +12,7 @@ import { uuid } from "@/app/partials/helpers";
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
 import { CHANGE_SELECTED_USER, CHANGE_NEW_MESSAGE } from "@/domains/twitter/infrastructure/store/actions";
+import { GET_SELECTED_USER } from "@/domains/twitter/infrastructure/store/getters";
 
 // helper
 import { wait } from "@/app/partials/helpers";
@@ -28,7 +29,7 @@ export const useMessage = async ({ message = MESSAGE_SUCCESS, payload = {}, call
     callbacks,
   });
 
-  twitterStore[CHANGE_SELECTED_USER]({ user: {} });
+  Object.keys(twitterStore[GET_SELECTED_USER]).length > 0 ? twitterStore[CHANGE_SELECTED_USER]({ user: {} }) : null;
   twitterStore[CHANGE_NEW_MESSAGE]({ message: text.replace(/ /g, "") });
 
   await wait(API_DELAY_MAX);

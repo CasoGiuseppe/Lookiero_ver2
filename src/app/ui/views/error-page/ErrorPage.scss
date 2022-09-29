@@ -1,6 +1,10 @@
 .error {
   $error: &;
 
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
   &-message {
     @include text--big;
 
@@ -17,6 +21,10 @@
 
       content: 'x';
       color: var(--sm-c-red-200, red);
+    }
+
+    +* {
+      margin-top: var(--sm-spacing-small, 0);
     }
   }
 }

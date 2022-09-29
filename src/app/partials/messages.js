@@ -10,3 +10,4 @@ export const BASE_NOTIFICATION_OBJ = ({ uuid, type, message }) => {
   return { uuid, type, message };
 };
 export const MIN_CHARACTER_MESSAGE = "Min characteres allowed: ";
+export const GO_HOME = "Back to home ";
