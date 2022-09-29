@@ -5,8 +5,7 @@ export const API_DELAY_MAX = 3000;
 export const API_DELAY_MIN = 1000;
 export const BASE_ENDPOINT = "people/";
 export const BASE_COSMETIC_STORE = {
-  hasLoader: {
-    state: false,
-  },
+  hasLoader: { state: false },
   hasNotification: [],
 };
+export const MIN_CHARACTER_ALLOWED = 10;

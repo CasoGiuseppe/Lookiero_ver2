@@ -14,6 +14,11 @@
     gap: var(--sm-spacing-medium, 0);
     max-width: var(--max-layouts-width, 0);
 
+    @include breakpoint('only-phone') {
+      flex-direction: column;
+      gap: var(--sm-spacing-small, 0);
+    }
+
     >textarea {
       flex: 1;
       resize: none;
