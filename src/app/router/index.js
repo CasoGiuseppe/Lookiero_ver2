@@ -12,6 +12,7 @@ const router = createRouter({
       name: "home",
       components: {
         default: () => import("@/app/ui/views/twitter-layout/TwitterLayout.vue"),
+        footer: () => import("@/app/ui/views/message-box/MessageBox.vue"),
       },
       beforeEnter: async (to, from, next) => {
         try {

@@ -1,7 +1,8 @@
 <template>
-  <section :class="[loaderStore.state === true ? 'is-loading is-blocked' : null, 'root-layout']" data-message="ciccio">
+  <section :class="[loaderStore.state === true ? 'is-loading is-blocked' : null, 'root-layout']">
     <section class="root-layout__content">
       <RouterView />
+      <RouterView name="footer" />
     </section>
   </section>
 
@@ -27,6 +28,7 @@
 <script setup>
 import { RouterView } from "vue-router";
 import { computed, reactive } from "vue";
+
 // components
 import Notification from "@/app/ui/components/base/base-notification/BaseNotification.vue";
 

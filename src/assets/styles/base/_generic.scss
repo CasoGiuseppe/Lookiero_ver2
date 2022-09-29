@@ -38,7 +38,11 @@ body {
   width: 100%;
 
   >* {
-    padding: 2vh 2vw;
+    padding: var(--sm-spacing-big);
+
+    @include breakpoint('tablet-ld') {
+      padding: var(--sm-spacing-big) 0;
+    }
   }
 
   &__header {
@@ -56,8 +60,11 @@ body {
   }
 
   &__content {
+    align-items: center;
     display: flex;
+    flex-direction: column;
     flex: 2;
+    gap: var(--sm-spacing-big);
     justify-content: center;
     overflow: hidden;
   }
