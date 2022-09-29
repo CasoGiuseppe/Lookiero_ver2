@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  padding: var(--sm-spacing-medium) 0 0;
+  padding: var(--sm-spacing-medium, 0) 0 0;
   position: sticky;
   width: 100%;
 
@@ -11,14 +11,14 @@
   &__input {
     display: flex;
     flex: 1;
-    gap: var(--sm-spacing-medium);
-    max-width: var(--max-layouts-width);
+    gap: var(--sm-spacing-medium, 0);
+    max-width: var(--max-layouts-width, 0);
 
     >textarea {
       flex: 1;
       resize: none;
 
-      border-radius: var(--sm-spacing-xsmall);
+      border-radius: var(--sm-spacing-xsmall, 0);
       border-color: var(--sm-c-gray-200, black);
     }
   }

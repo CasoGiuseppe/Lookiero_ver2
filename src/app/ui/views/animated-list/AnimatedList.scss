@@ -1,6 +1,6 @@
 .animated-list {
   $animatedlist: &;
-  border: 1px solid var(--sm-c-gray-100);
+  border: 1px solid var(--sm-c-gray-100, black);
 
   @include create-animation($name: 'appear-list-item',
     $from: translateX(50%),
@@ -14,22 +14,22 @@
   &__title {
     @include text--app;
 
-    padding: var(--sm-spacing-small);
+    padding: var(--sm-spacing-small, 0);
 
-    background: var(--sm-c-blue-500);
-    color: var(--sm-c-white);
+    background: var(--sm-c-blue-500, black);
+    color: var(--sm-c-white, white);
 
     +#{$animatedlist}__table {
-      margin-top: var(--sm-spacing-small);
+      margin-top: var(--sm-spacing-small, 0);
     }
   }
 
   &__row {
-    padding: var(--sm-spacing-small);
-    border-bottom: 1px solid var(--sm-c-gray-100);
+    padding: var(--sm-spacing-small, 0);
+    border-bottom: 1px solid var(--sm-c-gray-100, black);
 
     +#{$animatedlist}__row {
-      margin-top: var(--sm-spacing-small)
+      margin-top: var(--sm-spacing-small, 0)
     }
   }
 
@@ -37,6 +37,6 @@
     display: flex;
     justify-content: center;
 
-    color: var(--sm-c-red-200);
+    color: var(--sm-c-red-200, black);
   }
 }

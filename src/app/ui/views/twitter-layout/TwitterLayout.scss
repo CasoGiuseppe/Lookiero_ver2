@@ -4,13 +4,13 @@
   display: flex;
   flex: 2;
   flex-direction: column;
-  gap: var(--sm-spacing-medium);
-  max-width: var(--max-layouts-width);
+  gap: var(--sm-spacing-medium, 0);
+  max-width: var(--max-layouts-width, 0);
   overflow: hidden;
 
-  background: var(--sm-c-white);
-  border: 1px solid var(--sm-c-gray-200);
-  border-radius: var(--sm-spacing-xsmall);
+  background: var(--sm-c-white, white);
+  border: 1px solid var(--sm-c-gray-200, black);
+  border-radius: var(--sm-spacing-xsmall, 0);
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 
   @include breakpoint('tablet-pt') {
@@ -25,7 +25,7 @@
     display: flex;
     flex: 0 0 40%;
     flex-direction: row;
-    gap: var(--sm-spacing-medium);
+    gap: var(--sm-spacing-medium, 0);
 
     @include breakpoint('tablet-ld') {
       flex: 0 0 30%;

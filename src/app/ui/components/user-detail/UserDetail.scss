@@ -19,10 +19,10 @@
 
     >* {
       &:is(strong) {
-        padding: var(--sm-spacing-xsmall) var(--sm-spacing-small);
+        padding: var(--sm-spacing-xsmall, 0) var(--sm-spacing-small, 0);
 
-        background: var(--sm-c-blue-300);
-        border-radius: var(--sm-spacing-xsmall);
+        background: var(--sm-c-blue-300, black);
+        border-radius: var(--sm-spacing-xsmall, 0);
         color: var(--sm-c-white, white);
       }
 
@@ -61,7 +61,7 @@
     }
 
     ~#{$userdetail}__message {
-      margin-top: var(--sm-spacing-medium);
+      margin-top: var(--sm-spacing-medium, 0);
     }
   }
 

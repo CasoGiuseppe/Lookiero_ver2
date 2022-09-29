@@ -8,7 +8,7 @@
   );
 
   padding: var(--sm-spacing-small, 0) var(--sm-spacing-medium, 0);
-  background: var(--sm-c-white);
+  background: var(--sm-c-white, white);
   border-radius: var(--sm-spacing-xsmall, 0);
   border: 1px solid var(--sm-c-blue-500, black);
   color: var(--sm-c-blue-500, black);
@@ -51,7 +51,7 @@
         width: 50%;
         top: 50%;
 
-        background: var(--sm-c-white);
+        background: var(--sm-c-white, white);
         content: '';
       }
 

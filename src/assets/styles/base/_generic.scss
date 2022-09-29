@@ -5,8 +5,8 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &::selection {
-    background-color: var(--sm-c-blue-500, #000);
-    color: var(--sm-c-white, #fff)
+    background-color: var(--sm-c-blue-500, black);
+    color: var(--sm-c-white, white)
   }
 }
 
@@ -38,10 +38,10 @@ body {
   width: 100%;
 
   >* {
-    padding: var(--sm-spacing-big);
+    padding: var(--sm-spacing-big, 0);
 
     @include breakpoint('tablet-ld') {
-      padding: var(--sm-spacing-big) 0;
+      padding: var(--sm-spacing-big, 0) 0;
     }
   }
 
@@ -53,8 +53,8 @@ body {
     right: 0;
     top: 0;
 
-    background: var(--sm-c-white);
-    border-bottom: 1px solid var(--sm-c-gray-200);
+    background: var(--sm-c-white, white);
+    border-bottom: 1px solid var(--sm-c-gray-200, black);
     box-shadow: 2px 0px 3px 3px rgba(0, 0, 0, 0.05);
     z-index: 2;
   }
@@ -71,11 +71,11 @@ body {
 }
 
 .is-loading {
-  @include spinner(60, 15, var(--sm-c-yellow-300));
+  @include spinner(60, 15, var(--sm-c-yellow-300, black));
 
   animation-name: loading;
   animation-duration: .8s;
-  animation-timing-function: var(--sm-ease-out);
+  animation-timing-function: var(--sm-ease-out, linear);
   animation-fill-mode: forwards;
 
 }
