@@ -9,3 +9,4 @@ export const MESSAGE_SUCCESS = "Your new message is added correctly";
 export const BASE_NOTIFICATION_OBJ = ({ uuid, type, message }) => {
   return { uuid, type, message };
 };
+export const MIN_CHARACTER_MESSAGE = "Min characteres allowed: ";

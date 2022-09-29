@@ -3,6 +3,7 @@
     <form class="message-box__input" onsubmit="return false">
       <textarea rows="5" v-model="form.message" />
       <BaseButton mode="secondary" :disabled="minAllowedCharacter" @handleClick="saveNewMessage">send</BaseButton>
+      <p class="message-box__info">{{ MIN_CHARACTER_MESSAGE }}{{ MIN_CHARACTER_ALLOWED }}</p>
     </form>
   </footer>
 </template>
@@ -12,7 +13,7 @@ import { reactive, computed } from "vue";
 
 // constants
 import { MIN_CHARACTER_ALLOWED } from "@/app/partials/constants";
-import { TIMELINE_UPDATE_SUCCESS } from "@/app/partials/messages";
+import { TIMELINE_UPDATE_SUCCESS, MIN_CHARACTER_MESSAGE } from "@/app/partials/messages";
 
 // ui
 import BaseButton from "@/app/ui/components/base/base-button/BaseButton.vue";

@@ -11,7 +11,8 @@
   &__input {
     display: flex;
     flex: 1;
-    gap: var(--sm-spacing-medium, 0);
+    flex-wrap: wrap;
+    column-gap: var(--sm-spacing-medium, 0);
     max-width: var(--max-layouts-width, 0);
 
     @include breakpoint('only-phone') {
@@ -26,5 +27,12 @@
       border-radius: var(--sm-spacing-xsmall, 0);
       border: 1px solid var(--sm-c-gray-200, black);
     }
+  }
+
+  &__info {
+    @include text--mini;
+
+    color: var(--sm-c-gray-400, black);
+    flex: 0 0 100%;
   }
 }
