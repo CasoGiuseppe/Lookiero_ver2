@@ -6,7 +6,7 @@
     $from: translateX(50%),
     $to: translateX(-50%),
     $duration: .4s,
-    $duration-out: .4s,
+    $duration-out: 0s,
   );
 
   overflow: hidden;

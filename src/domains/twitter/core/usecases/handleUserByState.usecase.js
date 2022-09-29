@@ -113,7 +113,6 @@ export const handleUserByState =
 
         // 2.3 call callback method when patch has response
         if (!callbacks) return;
-        console.log(callbacks);
         Promise.all(callbacks.map(async (callback) => await callback()));
 
         // 2.4 notify to user successfully

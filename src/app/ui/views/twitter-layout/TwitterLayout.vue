@@ -78,13 +78,22 @@ const twitterUsers = computed(() => {
 const twitterSelectedUser = computed(() => twitterStore[GET_SELECTED_USER]);
 
 const updateUser = async ({ state, id }) =>
-  useChangeUserFollower({ state, id, callbacks: [useUsersFollower, useTimeline] });
+  useChangeUserFollower({
+    state,
+    id,
+    callbacks: [
+      useUsersFollower,
+      () => useTimeline({ message: TIMELINE_UPDATE_SUCCESS(twitterSelectedUser.value.author) }),
+    ],
+  });
 const setCurrentTimeline = async ({ id, author }) =>
   twitterStore[CHANGE_SELECTED_USER]({ user: twitterSelectedUser.value.id !== id ? { id, author } : {} });
 
 watch(twitterSelectedUser, async ({ id }) => {
   await useTimeline(
-    id ? { urls: [`${API_BASE_PATH}id/${id}`], message: TIMELINE_UPDATE_SUCCESS(twitterSelectedUser.value.author) } : {}
+    id
+      ? { urls: [`${API_BASE_PATH}id/${id}`], message: TIMELINE_UPDATE_SUCCESS(twitterSelectedUser.value.author) }
+      : { message: TIMELINE_UPDATE_SUCCESS() }
   );
 });
 </script>

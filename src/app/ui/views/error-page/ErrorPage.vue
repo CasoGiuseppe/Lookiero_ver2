@@ -6,4 +6,4 @@
 <script setup>
 import { GENERIC_ERROR } from "@/app/partials/messages";
 </script>
-<style lang="scss" src="./Error.scss" />
+<style lang="scss" src="./ErrorPage.scss" />
