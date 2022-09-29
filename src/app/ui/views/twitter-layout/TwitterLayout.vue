@@ -88,7 +88,7 @@ const updateUser = async ({ state, id }) =>
     state,
     id,
     callbacks: [
-      useUsersFollower,
+      () => useUsersFollower({ notificaiton: false }),
       () => useTimeline({ message: TIMELINE_UPDATE_SUCCESS(twitterSelectedUser.value.author) }),
     ],
   });

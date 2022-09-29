@@ -1,6 +1,7 @@
 .animated-list {
   $animatedlist: &;
   border: 1px solid var(--sm-c-gray-100, black);
+  border-radius: var(--sm-spacing-xsmall, 8);
 
   @include create-animation($name: 'appear-list-item',
     $from: translateX(50%),

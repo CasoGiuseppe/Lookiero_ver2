@@ -12,11 +12,12 @@ import { CHANGE_USER_STATE, UPDATE_USER_STATE } from "@/domains/twitter/infrastr
 
 const { getUserByOwnState, changeUserState } = UseHandleUserByState();
 
-export const useUsersFollower = async () => {
+export const useUsersFollower = async ({ notification = true } = {}) => {
   await getUserByOwnState({
     request: { url: `${API_BASE_PATH}` },
     onErrorState: { uuid: uuid() },
     onInfoState: { uuid: uuid(), message: USER_FOLLOW_SUCCESS },
+    notification,
     $store: useTwitterStore(),
     $actionName: CHANGE_USER_STATE,
   });

@@ -101,7 +101,7 @@ export const handleUserByState =
       const requiredOnFail = [url !== undefined].some((key) => key === false);
       if (requiredOnFail) throw new Error("Usecase > handleUserByState > check that all required params exist");
 
-      const { onErrorState, onInfoState, callbacks } = args;
+      const { onErrorState, onInfoState, notification, callbacks } = args;
 
       // 2. launch endpoint get to return all users by gived type
       try {
@@ -116,7 +116,7 @@ export const handleUserByState =
         Promise.all(callbacks.map(async (callback) => await callback()));
 
         // 2.4 notify to user successfully
-        hasNotification
+        hasNotification && notification
           ? hasNotification(
               { ...onInfoState, ...{ type: "info" } } || { uuid: "000", type: "info", message: "notification" }
             )

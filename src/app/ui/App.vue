@@ -19,6 +19,7 @@
       :data-uuid="notification.uuid"
       :style="{
         top: `${notificationHeight.values[index] || 0}px`,
+        'transition-delay': `${index * 0.1}s`,
       }"
     >
       <template #message> {{ notification.message }} </template>
