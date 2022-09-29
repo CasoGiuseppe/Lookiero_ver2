@@ -5,6 +5,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: var(--sm-spacing-small, 0);
+
+  transition: background 2s var(--sm-ease-out, linear);
+
+  &--is-new {
+    background: var(--sm-c-blue-100, black);
+  }
 
   &__author,
   &__message {
@@ -72,6 +79,6 @@
 
   &__message {
     flex: 0 0 100%;
-    color: var(--sm-c-gray-400, black)
+    color: var(--sm-c-gray-400, black);
   }
 }

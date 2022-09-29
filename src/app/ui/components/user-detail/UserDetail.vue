@@ -1,5 +1,5 @@
 <template>
-  <article class="user-detail">
+  <article :class="[isNew ? 'user-detail--is-new' : null, 'user-detail']">
     <h3 v-if="$slots['author']" class="user-detail__author">
       <slot name="author" />
     </h3>
@@ -12,4 +12,12 @@
     </p>
   </article>
 </template>
+<script setup>
+defineProps({
+  isNew: {
+    type: Boolean,
+    default: false,
+  },
+});
+</script>
 <style lang="scss" src="./UserDetail.scss" />

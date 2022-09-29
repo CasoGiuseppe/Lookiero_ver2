@@ -25,7 +25,6 @@
   }
 
   &__row {
-    padding: var(--sm-spacing-small, 0);
     border-bottom: 1px solid var(--sm-c-gray-100, black);
 
     +#{$animatedlist}__row {

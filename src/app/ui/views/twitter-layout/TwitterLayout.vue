@@ -35,7 +35,7 @@
       <AnimatedList :rows="twitterList" complex>
         <template #title>{{ twitterSelectedUser.author }} Timeline</template>
         <template #rows="{ row: { author, diffTime: time, message } }">
-          <UserDetail>
+          <UserDetail :isNew="message.replace(/ /g, '') === twitterNewMessage">
             <template #author
               ><strong>{{ author }}</strong></template
             >
@@ -63,7 +63,12 @@ import { useTimeline } from "@/app/composables/timeline.composable";
 
 // store
 import { useTwitterStore } from "@/domains/twitter/infrastructure/store";
-import { GET_TIMELINE_LIST, GET_USERS, GET_SELECTED_USER } from "@/domains/twitter/infrastructure/store/getters";
+import {
+  GET_TIMELINE_LIST,
+  GET_USERS,
+  GET_SELECTED_USER,
+  GET_NEW_MESSAGE,
+} from "@/domains/twitter/infrastructure/store/getters";
 import { CHANGE_SELECTED_USER } from "@/domains/twitter/infrastructure/store/actions";
 
 // pinia
@@ -76,6 +81,7 @@ const twitterUsers = computed(() => {
   };
 });
 const twitterSelectedUser = computed(() => twitterStore[GET_SELECTED_USER]);
+const twitterNewMessage = computed(() => twitterStore[GET_NEW_MESSAGE]);
 
 const updateUser = async ({ state, id }) =>
   useChangeUserFollower({

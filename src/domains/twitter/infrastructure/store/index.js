@@ -2,7 +2,13 @@ import { defineStore } from "pinia";
 import { BASE_USERS_STORE } from "../partials/constants";
 
 // actions
-import { CHANGE_USERS_LIST, CHANGE_USER_STATE, UPDATE_USER_STATE, CHANGE_SELECTED_USER } from "./actions";
+import {
+  CHANGE_USERS_LIST,
+  CHANGE_USER_STATE,
+  UPDATE_USER_STATE,
+  CHANGE_SELECTED_USER,
+  CHANGE_NEW_MESSAGE,
+} from "./actions";
 
 // getters
 import getters from "./getters";
@@ -16,18 +22,22 @@ export const useTwitterStore = defineStore({
       this.timeline = list;
     },
 
-    [CHANGE_USER_STATE]({ list = [] }) {
+    [CHANGE_USER_STATE]({ list = [] } = {}) {
       this.users = list;
     },
 
-    [UPDATE_USER_STATE]({ user = {} }) {
+    [UPDATE_USER_STATE]({ user = {} } = {}) {
       const { id } = user;
       const temp = this.users.filter((node) => node.id !== id);
       this.users = [...temp, user];
     },
 
-    [CHANGE_SELECTED_USER]({ user = {} }) {
+    [CHANGE_SELECTED_USER]({ user = {} } = {}) {
       this.selected = user;
+    },
+
+    [CHANGE_NEW_MESSAGE]({ message = undefined } = {}) {
+      this.newMessage = message;
     },
   },
 
